@@ -24,8 +24,8 @@ After you are done making changes to the code, use the following git commands to
 Use these Git commands in sequence:
 ```
 git status
-git add
-git commit
+git add .
+git commit -m "describe your changes in few words"
 ```
 
 #### Step 4 : Push the changes 
