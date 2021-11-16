@@ -1,4 +1,4 @@
-# productivize
+# Productivize
 Task and productivity Management Application in java
 
 ## Github commands to contribute for collaborators
