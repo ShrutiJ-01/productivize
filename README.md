@@ -1,7 +1,7 @@
 # Productivize
 Task and productivity Management Application in java
 
-## Github commands to contribute for collaborators
+## Github commands to contribute (for collaborators)
 
 #### Step 1 : Clone the project
 
