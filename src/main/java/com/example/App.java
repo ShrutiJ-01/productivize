@@ -5,6 +5,8 @@ import java.sql.*;
 import java.util.*;
 import java.util.logging.Logger;
 
+//demo class for with CRUD examples for azure MySQL using JDBC
+
 public final class App {
 
     private static final Logger log;
