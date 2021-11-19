@@ -27,6 +27,7 @@ git status
 git add .
 git commit -m "describe your changes in few words"
 ```
+>Note : The `git add .` stages all files. You might accidently stage and commit files unintended files this way. Use `git add filename.extension` to stage files individually when necessary.
 
 #### Step 4 : Push the changes 
 
