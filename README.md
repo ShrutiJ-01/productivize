@@ -17,7 +17,11 @@ It should list the following remotes:
 origin  https://github.com/ShrutiJ-01/productivize.git (fetch)
 origin  https://github.com/ShrutiJ-01/productivize.git (push)
 ```
-### Step 3 : Making Changes and Commiting them
+#### Step 3: Create a new Branch
+
+Enter `git checkout -b branchname` to get create a new branch and switch to it.
+
+#### Step 4 : Making Changes and Commiting them
 
 After you are done making changes to the code, use the following git commands to check,stage and commit files.
 
@@ -29,7 +33,7 @@ git commit -m "describe your changes in few words"
 ```
 >Note : The `git add .` stages all files. You might accidently stage and commit files unintended files this way. Use `git add filename.extension` to stage files individually when necessary.
 
-#### Step 4 : Push the changes 
+#### Step 5 : Push the changes 
 
 After you've commited changes, execute the follwing commands
 
@@ -39,7 +43,6 @@ After you've commited changes, execute the follwing commands
 
 2) Push your changes to remote
 
-`git push origin main`
+`git push origin branchname`
 
-This merges any recent changes from the remote, and then pushes the changes you made to the remote repo.
-
+These commands merges any recent changes from the main branch, and then pushes the changes you made to the remote repo.
