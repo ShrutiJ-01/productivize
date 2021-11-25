@@ -1,14 +1,26 @@
-package com.example;
+package com.example.tabledao;
 
+import java.util.logging.*;
+
+import com.example.entites.Employee;
+import com.example.productivize.App;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class EmployeeDao extends DatabaseConnector{
+public class EmployeeDao {
 
     private String tableName;
+    private Connection connection=DatabaseConnector.getConnection();
+    private static final Logger log;
+
+    static {
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$-7s] %5$s %n");
+        log=Logger.getLogger(App.class.getName());
+    }
 
     public EmployeeDao() {
-        super();
         this.tableName="employees";
     }
     

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.entites;
 
 public class Worklog {
 
@@ -12,12 +12,11 @@ public class Worklog {
     public String timestamp;
     public int employee_id;
 
-    public Worklog(int id, int task_id, int project_id, String work_done, String timestamp, int employee_id) {
+    public Worklog(int id, int task_id, int project_id, String work_done,int employee_id) {
         this.id = id;
         this.task_id = task_id;
         this.project_id = project_id;
         this.work_done = work_done;
-        this.timestamp = timestamp;
         this.employee_id = employee_id;
     }
 

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.entites;
 
 public class Project {
 	public int id;

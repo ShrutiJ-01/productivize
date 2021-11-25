@@ -1,10 +1,25 @@
-package com.example;
+package com.example.tabledao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
-public class ManagerDao extends DatabaseConnector{
+import com.example.entites.Manager;
+import com.example.productivize.App;
+
+
+//TODO : make delete and update functions return codes if given id doesnt exist.
+
+public class ManagerDao{
     private String tableName;
+    private Connection connection=DatabaseConnector.getConnection();
+    private static final Logger log;
+
+    static {
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$-7s] %5$s %n");
+        log=Logger.getLogger(App.class.getName());
+    }
 
     public ManagerDao() {
         super();
