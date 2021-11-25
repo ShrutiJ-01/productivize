@@ -23,7 +23,7 @@ public class TaskDao extends DatabaseConnector
         try 
         {
             PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO " + tableName
-                    + " (id, name, employee_id, status_id, ms_id, project_id) VALUES (?, ?, ?, ?, ?, ?);");
+                    + " (t_id, t_name, employee_id, status_id, ms_id, project_id) VALUES (?, ?, ?, ?, ?, ?);");
             insertStatement.setInt(1, task.id);
             insertStatement.setString(2, task.name);
             insertStatement.setInt(3, task.employee_id);
@@ -49,7 +49,7 @@ public class TaskDao extends DatabaseConnector
 	        try 
 	        {
 	            PreparedStatement deleteStatement = connection
-	                    .prepareStatement("DELETE FROM " + tableName + " WHERE id = ?;");
+	                    .prepareStatement("DELETE FROM " + tableName + " WHERE t_id = ?;");
 	            deleteStatement.setInt(1, id);
 	            deleteStatement.executeUpdate();
 	            return true;
@@ -70,7 +70,7 @@ public class TaskDao extends DatabaseConnector
 	        try 
 	        {
 	            PreparedStatement updateStatement = connection.prepareStatement("UPDATE " + tableName
-	                    + " (id, name, employee_id, status_id, ms_id, project_id) VALUES (?, ?, ?, ?, ?, ?);");
+	                    + " (t_id, t_name, employee_id, status_id, ms_id, project_id) VALUES (?, ?, ?, ?, ?, ?);");
 	            updateStatement.setInt(1, task.id);
 	            updateStatement.setString(2, task.name);
 	            updateStatement.setInt(3, task.employee_id);
