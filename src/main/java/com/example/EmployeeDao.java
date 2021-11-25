@@ -20,7 +20,7 @@ public class EmployeeDao extends DatabaseConnector{
         log.info("Insert new Employee");
         try {
             PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO " + tableName
-                    + " (id, first_name, last_name, password) VALUES (?, ?, ?, ?);");
+                    + " (e_id, first_name, last_name, password) VALUES (?, ?, ?, ?);");
             insertStatement.setInt(1, employee.id);
             insertStatement.setString(2, employee.first_name);
             insertStatement.setString(3, employee.last_name);
@@ -42,7 +42,7 @@ public class EmployeeDao extends DatabaseConnector{
         log.info("Delete Employee");
         try {
             PreparedStatement deleteStatement = connection
-                    .prepareStatement("DELETE FROM " + tableName + " WHERE id = ?;");
+                    .prepareStatement("DELETE FROM " + tableName + " WHERE e_id = ?;");
             deleteStatement.setInt(1, id);
             deleteStatement.executeUpdate();
             return true;
@@ -59,7 +59,7 @@ public class EmployeeDao extends DatabaseConnector{
         log.info("Update Emploee details");
         try {
             PreparedStatement updateStatement = connection.prepareStatement("UPDATE " + tableName
-                    + " SET first_name = ?, last_name = ?, password = ? WHERE id = ?;");
+                    + " SET first_name = ?, last_name = ?, password = ? WHERE e_id = ?;");
             updateStatement.setString(1, employee.first_name);
             updateStatement.setString(2, employee.last_name);
             updateStatement.setString(3, employee.getPassword());

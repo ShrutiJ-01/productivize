@@ -20,7 +20,7 @@ public class ProjectDao extends DatabaseConnector {
         log.info("Insert new Project");
         try {
             PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO " + tableName
-                    + " (id, name, start, end, manager_id, status_id) VALUES (?, ?, ?, ?);");
+                    + " (id, p_name, start, end, manager_id, status_id) VALUES (?, ?, ?, ?);");
             insertStatement.setInt(1, project.id);
             insertStatement.setString(2, project.name);
             insertStatement.setString(3, project.start);
@@ -57,7 +57,7 @@ public class ProjectDao extends DatabaseConnector {
 	        log.info("Update Project");
 	        try {
 	            PreparedStatement updateStatement = connection.prepareStatement("UPDATE " + tableName
-	                    + " (id, name, start, end, manager_id, status_id) VALUES (?, ?, ?, ?);");
+	                    + " (id, p_name, start, end, manager_id, status_id) VALUES (?, ?, ?, ?);");
 	            updateStatement.setInt(1, project.id);
 	            updateStatement.setString(2, project.name);
 	            updateStatement.setString(3, project.start);

@@ -21,7 +21,7 @@ public class MilestonesDao extends DatabaseConnector{
 		log.info("Insert new milestone");
 		try {
 			PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO " + tableName 
-					+ " (id, name, due_date, deliverables, project_id, status_id) VALUES (?,?,?,?,?,?);");
+					+ " (id, m_name, due_date, deliverables, project_id, status_id) VALUES (?,?,?,?,?,?);");
 			insertStatement.setInt(1, milestone.id);
 			insertStatement.setString(2, milestone.name);
 			insertStatement.setString(3, milestone.due_date);
@@ -42,7 +42,7 @@ public class MilestonesDao extends DatabaseConnector{
 	public boolean delete(int id) {
 		log.info("Delete Milestone");
 		try {
-			PreparedStaement deleteStatement= connection.prepareStatement("DELETE FROM "+ "WHERE id = ?,");
+			PreparedStatement deleteStatement= connection.prepareStatement("DELETE FROM "+ "WHERE id = ?,");
 			deleteStatement.setInt(1, id);
 			deleteStatement.executeUpdate();
 			return true;
@@ -56,8 +56,8 @@ public class MilestonesDao extends DatabaseConnector{
 	public boolean update(Milestone milestone) {
 		log.info("Update Milestone");
 		try {
-			PreparedStatement updateStatement= connection.prepareStatement("UPDATE" + tablename 
-					+ "(id,name.dueDate,deliverables,project_id,status_id) VALUES(?,?,?,?,?,?);");
+			PreparedStatement updateStatement= connection.prepareStatement("UPDATE" + tableName 
+					+ "(id,m_name.dueDate,deliverables,project_id,status_id) VALUES(?,?,?,?,?,?);");
 			updateStatement.setInt(1, milestone.id);
 			updateStatement.setString(2, milestone.name);
 			updateStatement.setString(3, milestone.due_date);
@@ -68,7 +68,8 @@ public class MilestonesDao extends DatabaseConnector{
 			return true;
 		}catch(SQLException e){
 			Log.info("MIlestonesDao :Could not update the milestone table");
-			
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
