@@ -1,15 +1,28 @@
-package com.example;
+package com.example.tabledao;
 
+import java.util.logging.Logger;
+
+import com.example.entites.Employee;
+import com.example.entites.Manager;
+import com.example.productivize.App;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Authenticate extends DatabaseConnector{
+public class Authenticate{
     private String employeeTableName;
     private String managerTableName;
+    private Connection connection=DatabaseConnector.getConnection();
+    private static final Logger log;
 
-    Authenticate(){
-        super();
+    static {
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$-7s] %5$s %n");
+        log=Logger.getLogger(App.class.getName());
+    }
+    
+    public Authenticate(){
         employeeTableName="employees";
         managerTableName="managers";
     }
@@ -17,7 +30,7 @@ public class Authenticate extends DatabaseConnector{
     //This method verifies if an employee of entered credentials
     //exists in the database. Returns employee object for correct 
     //credentials and throws exception otherwise
-    Employee loginEmployee(int Uid, String password)throws Exception{
+    public Employee loginEmployee(int Uid, String password)throws Exception{
 
         log.info("Authenticate : Verifying employee credentials");
         PreparedStatement readStatement;
@@ -45,12 +58,12 @@ public class Authenticate extends DatabaseConnector{
 
     //This method inserts an employee into employee table using employee daos insert method
     //It throws an exception if the employee couldnit be inserted.
-    Employee registerEmployee(String first_name, String last_name,String password) throws Exception{
+    public Employee registerEmployee(String first_name, String last_name,String password) throws Exception{
 
         log.info("Autheticate : Registering employee in database");
 
         EmployeeDao employeeDao = new EmployeeDao();
-        Employee new_employee=new Employee(1,first_name,last_name,false);//1 is used as a dummy value here=>The uniqueId generator will be called here
+        Employee new_employee=new Employee(9678,first_name,last_name,false);//1 is used as a dummy value here=>The uniqueId generator will be called here
         new_employee.setPassword(password);
 
         //insert employee into database
@@ -72,7 +85,7 @@ public class Authenticate extends DatabaseConnector{
      //This method verifies if an employee of entered credentials
     //exists in the database. Returns employee object for correct 
     //credentials and throws exception otherwise
-    Manager loginManager(int Uid, String password)throws Exception{
+    public Manager loginManager(int Uid, String password)throws Exception{
 
         log.info("Authenticate : Verifying manager credentials");
         PreparedStatement readStatement;
@@ -100,12 +113,12 @@ public class Authenticate extends DatabaseConnector{
 
     //This method inserts an manager into employee table using employee daos insert method
     //It throws an exception if the employee couldnit be inserted.
-    Manager registerManager(String first_name, String last_name,String password) throws Exception{
+    public Manager registerManager(String first_name, String last_name,String password) throws Exception{
 
         log.info("Autheticate : Registering manager in database");
 
         ManagerDao managerDao = new ManagerDao();
-        Manager new_manager = new Manager(1,first_name,last_name,false);//1 is used as a dummy value here=>The uniqueId generator will be called here
+        Manager new_manager = new Manager(9678,first_name,last_name,false);//1 is used as a dummy value here=>The uniqueId generator will be called here
         new_manager.setPassword(password);
 
         //insert employee into database

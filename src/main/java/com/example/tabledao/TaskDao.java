@@ -1,12 +1,23 @@
-package com.example;
+package com.example.tabledao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
-public class TaskDao extends DatabaseConnector 
-{
+import com.example.entites.Task;
+import com.example.productivize.App;
+
+public class TaskDao {
 
 	private String tableName;
+	private Connection connection=DatabaseConnector.getConnection();
+    private static final Logger log;
+
+    static {
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$-7s] %5$s %n");
+        log=Logger.getLogger(App.class.getName());
+    }
 	
 	public TaskDao() 
 	{
@@ -70,13 +81,13 @@ public class TaskDao extends DatabaseConnector
 	        try 
 	        {
 	            PreparedStatement updateStatement = connection.prepareStatement("UPDATE " + tableName
-	                    + " (t_id, t_name, employee_id, status_id, ms_id, project_id) VALUES (?, ?, ?, ?, ?, ?);");
-	            updateStatement.setInt(1, task.id);
-	            updateStatement.setString(2, task.name);
-	            updateStatement.setInt(3, task.employee_id);
-	            updateStatement.setInt(4, task.status_id);
-	            updateStatement.setInt(5, task.ms_id);
-	            updateStatement.setInt(6, task.project_id);
+	                    + " SET t_name = ?, employee_id = ?, status_id = ?, ms_id = ?, project_id = ?  WHERE t_id = ?;");
+	            updateStatement.setString(1, task.name);
+	            updateStatement.setInt(2, task.employee_id);
+	            updateStatement.setInt(3, task.status_id);
+	            updateStatement.setInt(4, task.ms_id);
+	            updateStatement.setInt(5, task.project_id);
+				updateStatement.setInt(6, task.id);
 	            updateStatement.executeUpdate();
 	            return true;
 

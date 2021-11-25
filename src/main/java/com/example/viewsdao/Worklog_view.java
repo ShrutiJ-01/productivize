@@ -1,4 +1,4 @@
-package com.views;
+package com.example.viewsdao;
 
 import java.sql.Timestamp;
 

@@ -1,9 +1,14 @@
-package com.example;
+package com.example.tabledao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
-public class WorklogDao extends DatabaseConnector {
+import com.example.entites.Worklog;
+import com.example.productivize.App;
+
+public class WorklogDao{
 
     // This class contains all database operations on the "worklogs" table in the
     // database.
@@ -11,10 +16,15 @@ public class WorklogDao extends DatabaseConnector {
     // the database.
 
     private String tableName;
+    private Connection connection=DatabaseConnector.getConnection();
+    private static final Logger log;
+
+    static {
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$-7s] %5$s %n");
+        log=Logger.getLogger(App.class.getName());
+    }
 
     public WorklogDao() {
-        // constructor
-        super();
         tableName = "worklogs";
     }
 
@@ -25,13 +35,12 @@ public class WorklogDao extends DatabaseConnector {
         log.info("Insert worklog");
         try {
             PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO " + tableName
-                    + " (id, timestamp, work_done, task_id, employee_id, project_id) VALUES (?, ?, ?, ?, ?, ?);");
+                    + " (id, work_done, task_id, employee_id, project_id) VALUES (?, ?, ?, ?, ?);");
             insertStatement.setInt(1, worklog.id);
-            insertStatement.setString(2, worklog.timestamp);
-            insertStatement.setString(3, worklog.work_done);
-            insertStatement.setInt(4, worklog.task_id);
-            insertStatement.setInt(5, worklog.employee_id);
-            insertStatement.setInt(6, worklog.project_id);
+            insertStatement.setString(2, worklog.work_done);
+            insertStatement.setInt(3, worklog.task_id);
+            insertStatement.setInt(4, worklog.employee_id);
+            insertStatement.setInt(5, worklog.project_id);
             insertStatement.executeUpdate();
             return true;
 
@@ -66,13 +75,12 @@ public class WorklogDao extends DatabaseConnector {
         log.info("Update data");
         try {
             PreparedStatement updateStatement = connection.prepareStatement("UPDATE " + tableName
-                    + " SET timestamp = ?, work_done = ?, task_id = ?, employee_id = ?, project_id= ? WHERE id = ?;");
-            updateStatement.setString(1, worklog.timestamp);
-            updateStatement.setString(2, worklog.work_done);
-            updateStatement.setInt(3, worklog.task_id);
-            updateStatement.setInt(4, worklog.employee_id);
-            updateStatement.setInt(5, worklog.project_id);
-            updateStatement.setInt(6, worklog.id);
+                    + " SET work_done = ?, task_id = ?, employee_id = ?, project_id= ? WHERE id = ?;");
+            updateStatement.setString(1, worklog.work_done);
+            updateStatement.setInt(2, worklog.task_id);
+            updateStatement.setInt(3, worklog.employee_id);
+            updateStatement.setInt(4, worklog.project_id);
+            updateStatement.setInt(5, worklog.id);
             updateStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
