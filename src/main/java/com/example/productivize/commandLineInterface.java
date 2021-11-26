@@ -30,6 +30,7 @@ public class commandLineInterface {
 
     public static void main(String[] args) throws Exception {
         boolean result;
+        ResultSet queryResultSet;
 
         log.info("---------------------------------------------------------");
         log.info("AUTHENTICATE.JAVA ");       
@@ -62,7 +63,7 @@ public class commandLineInterface {
         TaskDao taskDao=new TaskDao();
         result=taskDao.update(task);  
         log.info("Update succesful ? : "+result); 
-        result=employeeDao.delete(task.id);
+        result=taskDao.delete(task.id);
         log.info("Delete succesful ? : "+result);
 
         log.info("---------------------------------------------------------");
@@ -75,6 +76,15 @@ public class commandLineInterface {
         log.info("Insert succesful ? : "+result);
         result=projectDao.delete(8765);
         log.info("Delete succesful ? : "+result);
+        log.info("Querying ongoing projects for manager_id 12 | Entries expected : 1 ");
+        queryResultSet=projectDao.getOngoingProjectsForManager(207);
+        log.info("Entries found :  "+queryResultSet.getRow());
+        log.info("Querying blocked projects for manager_id 12 | Entries expected : 1 ");
+        queryResultSet=projectDao.getBlockedProjectsForManager(207);
+        log.info("Entries found :  "+queryResultSet.getRow());
+        log.info("Querying completed projects for manager_id 12 | Entries expected : 1 ");
+        queryResultSet=projectDao.getCompletedProjectsForManager(207);
+        log.info("Entries found :  "+queryResultSet.getRow());
 
         log.info("---------------------------------------------------------");
         log.info("MILESTONESDAO.JAVA ");   
@@ -86,6 +96,9 @@ public class commandLineInterface {
         log.info("Insert succesful ? : "+result);
         result=milestoneDao.delete(352);
         log.info("Delete succesful ? : "+result);
+        log.info("Querying Milestones for project_id 12 | Entries expected : 2 ");
+        queryResultSet= milestoneDao.getMilestonesForProject(12);
+        log.info("Entries found :  "+queryResultSet.getRow());
 
         log.info("---------------------------------------------------------");
         log.info("WORKLOGDAO.JAVA ");   
@@ -102,7 +115,6 @@ public class commandLineInterface {
         log.info("MANAGER_VIEW.JAVA ");   
         Manager_view manager_view= new Manager_view();
         ResultSet resultSet=manager_view.getTasksofProject(11);
-        result=worklogDao.delete(352);
         log.info(resultSet.getString("first_name"));
         while (resultSet.next()) {
             log.info(resultSet.getString("first_name"));
