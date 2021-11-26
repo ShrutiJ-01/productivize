@@ -2,6 +2,7 @@ package com.example.tabledao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
@@ -85,4 +86,81 @@ public class ProjectDao{
 	        }
 
 	    }
+		public ResultSet getOngoingProjectsForManager(int manager_id)
+		{  
+			log.info("ProjectDao : Querying ongoing proects for manager Id :  "+manager_id);
+			PreparedStatement readStatement;
+			try {
+				readStatement = connection.prepareStatement("SELECT p_name,id,start,end FROM " +tableName+ " WHERE manager_id = ? AND status_id = 999;");
+				readStatement.setInt(1,manager_id);
+				ResultSet resultSet = readStatement.executeQuery();//execute the select query
+	
+				if (!resultSet.next()) {//if the resultSet is empty return null
+					log.info("ProjectDao : No Matching Data found in table");
+					return null;
+				}
+				else{ //return resultSet containing data     
+				log.info("ProjectDao : Data found in table");
+				return resultSet;
+				}
+	
+			} catch (SQLException e) {//throw exception when database error occurs
+				log.info("ProjectDao : Could not read from table");
+				e.printStackTrace();
+				return null;
+			}
+			
+		} 
+
+		public ResultSet getCompletedProjectsForManager(int manager_id)
+		{  
+			log.info("ProjectDao : Querying completed proects for manager Id :  "+manager_id);
+			PreparedStatement readStatement;
+			try {
+				readStatement = connection.prepareStatement("SELECT p_name,id,start,end FROM " +tableName+ " WHERE manager_id = ? AND status_id = 998;");
+				readStatement.setInt(1,manager_id);
+				ResultSet resultSet = readStatement.executeQuery();//execute the select query
+	
+				if (!resultSet.next()) {//if the resultSet is empty return null
+					log.info("ProjectDao : No Matching Data found in table");
+					return null;
+				}
+				else{ //return resultSet containing data     
+				log.info("ProjectDao : Data found in table");
+				return resultSet;
+				}
+	
+			} catch (SQLException e) {//throw exception when database error occurs
+				log.info("ProjectDao : Could not read from table");
+				e.printStackTrace();
+				return null;
+			}
+			
+		} 
+
+		public ResultSet getBlockedProjectsForManager(int manager_id)
+		{  
+			log.info("ProjectDao : Querying blocked projects for manager Id :  "+manager_id);
+			PreparedStatement readStatement;
+			try {
+				readStatement = connection.prepareStatement("SELECT p_name,id,start,end FROM " +tableName+ " WHERE manager_id = ? AND status_id = 997;");
+				readStatement.setInt(1,manager_id);
+				ResultSet resultSet = readStatement.executeQuery();//execute the select query
+	
+				if (!resultSet.next()) {//if the resultSet is empty return null
+					log.info("ProjectDao : No Matching Data found in table");
+					return null;
+				}
+				else{ //return resultSet containing data     
+				log.info("ProjectDao : Data found in table");
+				return resultSet;
+				}
+	
+			} catch (SQLException e) {//throw exception when database error occurs
+				log.info("ProjectDao : Could not read from table");
+				e.printStackTrace();
+				return null;
+			}
+			
+		} 
 }

@@ -7,6 +7,7 @@ import com.example.productivize.App;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MilestonesDao{
@@ -21,7 +22,7 @@ public class MilestonesDao{
 	
 	public MilestonesDao() {
 		super();
-		this.tableName="Milestones";
+		this.tableName="milestones";
 		
 	}
 	
@@ -81,5 +82,31 @@ public class MilestonesDao{
 			return false;
 		}
 	} 
+
+	public ResultSet getMilestonesForProject(int project_id)
+	{  
+		log.info("MilestonesDao : Querying milestones for project Id :  "+project_id);
+		PreparedStatement readStatement;
+		try {
+			readStatement = connection.prepareStatement("SELECT milestones.m_name,milestones.id,milestones.due_date,milestones.deliverables,ms_status.status FROM milestones,ms_status WHERE milestones.project_id = ? AND milestones.status_id=ms_status.id;");
+			readStatement.setInt(1,project_id);
+			ResultSet resultSet = readStatement.executeQuery();//execute the select query
+
+			if (!resultSet.next()) {//if the resultSet is empty return null
+				log.info("MilestonesDao : No Matching Data found in table");
+				return null;
+			}
+			else{ //return resultSet containing data     
+			log.info("MilestonesDao : Data found in table");
+			return resultSet;
+			}
+
+		} catch (SQLException e) {//throw exception when database error occurs
+			log.info("MilestonesDao : Could not read from table");
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 
 }
