@@ -68,7 +68,7 @@ public class Worklog_view {
                 log.info("WorklogViewDao : Could not read from worklog_view");
                 e.printStackTrace();
                 return null;
-            }
+            } 
         	
         } 
         
