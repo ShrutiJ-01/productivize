@@ -1,5 +1,7 @@
 package com.example.entites;
 
+import java.sql.Timestamp;
+
 public class Worklog {
 
     // entity class modelled after worklog.
@@ -9,7 +11,7 @@ public class Worklog {
     public int task_id;
     public int project_id;
     public String work_done;
-    public String timestamp;
+    public Timestamp timestamp;
     public int employee_id;
 
     public Worklog(int id, int task_id, int project_id, String work_done,int employee_id) {
