@@ -15,9 +15,9 @@ import com.example.tabledao.MilestonesDao;
 import com.example.tabledao.ProjectDao;
 import com.example.tabledao.TaskDao;
 import com.example.tabledao.WorklogDao;
-import com.example.viewsdao.Employee_task_view;
-import com.example.viewsdao.Manager_view;
-import com.example.viewsdao.Worklog_view;
+import com.example.viewsdao.EmployeeTaskView;
+import com.example.viewsdao.ManagerView;
+import com.example.viewsdao.EmployeeWorklogView;
 
 public class commandLineInterface {
 
@@ -113,7 +113,7 @@ public class commandLineInterface {
 
         log.info("---------------------------------------------------------");
         log.info("MANAGER_VIEW.JAVA ");   
-        Manager_view manager_view= new Manager_view();
+        ManagerView manager_view= new ManagerView();
         ResultSet resultSet=manager_view.getTasksofProject(11);
         log.info(resultSet.getString("first_name"));
         while (resultSet.next()) {
@@ -123,7 +123,7 @@ public class commandLineInterface {
 
         log.info("---------------------------------------------------------");
         log.info("EMPLOYEE_TASKS_VIEW.JAVA ");   
-        Employee_task_view employee_task_view= new Employee_task_view();
+        EmployeeTaskView employee_task_view= new EmployeeTaskView();
         ResultSet todoTasksResult=employee_task_view.getCompletedTasks(102);
         
         log.info(todoTasksResult.getString("t_name"));
@@ -134,7 +134,7 @@ public class commandLineInterface {
  
         log.info("---------------------------------------------------------");
         log.info("WORKLOG_VIEW.JAVA ");   
-        Worklog_view worklog_view= new Worklog_view();
+        EmployeeWorklogView worklog_view= new EmployeeWorklogView();
         ResultSet worklogResult=worklog_view.getWorklogsOfEmployee(102);
         
         log.info(worklogResult.getString("p_name"));

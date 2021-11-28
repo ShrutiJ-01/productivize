@@ -1,6 +1,5 @@
 package com.example.viewsdao;
 
-import com.example.*;
 import com.example.productivize.App;
 import com.example.tabledao.DatabaseConnector;
 
@@ -10,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
-public class Employee_task_view{
+public class EmployeeTaskView{
 	
 	private String viewName;
 	private int statusTodo = 401;
@@ -24,7 +23,7 @@ public class Employee_task_view{
         System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$-7s] %5$s %n");
         log=Logger.getLogger(App.class.getName());
     }
-    public Employee_task_view() {
+    public EmployeeTaskView() {
         super();
         this.viewName="employee_tasks_view";
     }
