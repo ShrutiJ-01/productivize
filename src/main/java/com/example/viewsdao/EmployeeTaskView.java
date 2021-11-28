@@ -103,31 +103,35 @@ public class EmployeeTaskView{
         
     	
     } 
+    public ResultSet getCustomProjects(int employee_id,int status_id,int project_id)
+    {  //function body
+    	//int statusCompleted = 403;
+    	
+    	try  {
+    		PreparedStatement customProjects = connection.prepareStatement("select t_name,t_id,m_name,p_name from "+viewName+" WHERE e_id = ? AND status_id = ? AND id = ?");
+    		customProjects.setInt(1,employee_id);
+    		customProjects.setInt(1,status_id);
+    		customProjects.setInt(1,project_id);
+    		ResultSet customProjectsResult = customProjects.executeQuery();
+            if (!customProjectsResult.next()) {//if the resultSet is empty return null
+                log.info("EmployeeTasksViewDao : No Matching Data found in View");
+                return null;
+            }
+            else{ //return resultSet containing data     
+            log.info("EmployeeTasksViewDao : Data found in View");
+            return customProjectsResult;
+            }
+    	}
+    	
+    	catch (SQLException e) {
+            log.info("Employee_tasks_view: Could not read from Employee_tasks_view");
+            e.printStackTrace();
+            return null;
+        }
+        
+    	
+    } 
 
-//    public ResultSet getTasksofProject(int project_id)
-//    {  
-//        log.info("ManagerViewDao : Querying tasks for project Id : "+project_id);
-//        PreparedStatement readStatement;
-//        try {
-//            readStatement = connection.prepareStatement("SELECT employee_id,first_name,last_name,t_id,t_name,m_name  FROM " +viewName+ " WHERE project_id = ?;");
-//            readStatement.setInt(1,project_id);
-//            ResultSet resultSet = readStatement.executeQuery();//execute the select query
-//
-//            if (!resultSet.next()) {//if the resultSet is empty return null
-//                log.info("ManagerViewDao : No Matching Data found in View");
-//                return null;
-//            }
-//            else{ //return resultSet containing data     
-//            log.info("ManagerViewDao : Data found in View");
-//            return resultSet;
-//            }
-//
-//        } catch (SQLException e) {//throw exception when database error occurs
-//            log.info("ManagerViewDao : Could not read from manager_view");
-//            e.printStackTrace();
-//            return null;
-//        }
-//    	
-//    } 
+
            
 }

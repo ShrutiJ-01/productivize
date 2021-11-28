@@ -91,7 +91,7 @@ public class ProjectDao{
 			log.info("ProjectDao : Querying ongoing proects for manager Id :  "+manager_id);
 			PreparedStatement readStatement;
 			try {
-				readStatement = connection.prepareStatement("SELECT p_name,id,start,end FROM " +tableName+ " WHERE manager_id = ? AND status_id = 999;");
+				readStatement = connection.prepareStatement("SELECT p_name,id,start,end FROM " +tableName+ " WHERE manager_id = ? AND status_id = 999 ORDER BY p_name");
 				readStatement.setInt(1,manager_id);
 				ResultSet resultSet = readStatement.executeQuery();//execute the select query
 	
@@ -117,7 +117,7 @@ public class ProjectDao{
 			log.info("ProjectDao : Querying completed proects for manager Id :  "+manager_id);
 			PreparedStatement readStatement;
 			try {
-				readStatement = connection.prepareStatement("SELECT p_name,id,start,end FROM " +tableName+ " WHERE manager_id = ? AND status_id = 998;");
+				readStatement = connection.prepareStatement("SELECT p_name,id,start,end FROM " +tableName+ " WHERE manager_id = ? AND status_id = 998 ORDER BY p_name");
 				readStatement.setInt(1,manager_id);
 				ResultSet resultSet = readStatement.executeQuery();//execute the select query
 	
@@ -143,7 +143,7 @@ public class ProjectDao{
 			log.info("ProjectDao : Querying blocked projects for manager Id :  "+manager_id);
 			PreparedStatement readStatement;
 			try {
-				readStatement = connection.prepareStatement("SELECT p_name,id,start,end FROM " +tableName+ " WHERE manager_id = ? AND status_id = 997;");
+				readStatement = connection.prepareStatement("SELECT p_name,id,start,end FROM " +tableName+ " WHERE manager_id = ? AND status_id = 997 ORDER BY p_name");
 				readStatement.setInt(1,manager_id);
 				ResultSet resultSet = readStatement.executeQuery();//execute the select query
 	
