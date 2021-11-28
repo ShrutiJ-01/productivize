@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
-public class Manager_view{
+public class ManagerView{
 
 	private String viewName;
     private Connection connection=DatabaseConnector.getConnection();
@@ -19,7 +19,7 @@ public class Manager_view{
         log=Logger.getLogger(App.class.getName());
     }
 
-    public Manager_view() {
+    public ManagerView() {
         super();
         this.viewName="manager_view";
     }
