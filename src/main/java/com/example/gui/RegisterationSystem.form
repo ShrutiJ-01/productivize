@@ -32,25 +32,25 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
-              <Component id="LabelLoginSystem" min="-2" max="-2" attributes="0"/>
+              <Component id="LabelRegistrationSystem" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
-          <Component id="PanelLogin" alignment="0" max="32767" attributes="0"/>
+          <Component id="PanelRegistration" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="LabelLoginSystem" min="-2" max="-2" attributes="0"/>
+              <Component id="LabelRegistrationSystem" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="PanelLogin" min="-2" max="-2" attributes="0"/>
+              <Component id="PanelRegistration" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="LabelLoginSystem">
+    <Component class="javax.swing.JLabel" name="LabelRegistrationSystem">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="24" style="1"/>
@@ -58,7 +58,7 @@
         <Property name="text" type="java.lang.String" value="Login System"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="PanelLogin">
+    <Container class="javax.swing.JPanel" name="PanelRegistration">
 
       <Layout>
         <DimensionLayout dim="0">
@@ -139,11 +139,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="ButtonEmployeeLogin" pref="212" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="PasswordFieldEmployee" max="32767" attributes="0"/>
-                              <Component id="TFEmployeeID" pref="212" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="ButtonEmployeeRegistration" pref="212" max="32767" attributes="0"/>
+                          <Component id="PasswordFieldEmployee" max="32767" attributes="0"/>
+                          <Component id="TFEmployeeName" pref="212" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="65" max="32767" attributes="0"/>
                   </Group>
@@ -153,18 +151,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="TFEmployeeID" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="TFEmployeeName" min="-2" pref="37" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="PasswordFieldEmployee" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="ButtonEmployeeLogin" min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="ButtonEmployeeRegistration" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace pref="37" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="TFEmployeeID">
+            <Component class="javax.swing.JTextField" name="TFEmployeeName">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
@@ -172,12 +170,12 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="99" red="99" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="employeeid"/>
+                <Property name="text" type="java.lang.String" value="employeename"/>
               </Properties>
               <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TFEmployeeIDFocusGained"/>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TFEmployeeIDFocusLost"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TFEmployeeIDActionPerformed"/>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TFEmployeeNameFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TFEmployeeNameFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TFEmployeeNameActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="PasswordFieldEmployee">
@@ -195,9 +193,9 @@
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="PasswordFieldEmployeeFocusLost"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="ButtonEmployeeLogin">
+            <Component class="javax.swing.JButton" name="ButtonEmployeeRegistration">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Login"/>
+                <Property name="text" type="java.lang.String" value="Register"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -215,8 +213,8 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="58" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="ButtonManagerLogin" alignment="1" max="32767" attributes="0"/>
-                          <Component id="TFManagerID" max="32767" attributes="0"/>
+                          <Component id="ButtonManagerRegistration" alignment="1" max="32767" attributes="0"/>
+                          <Component id="TFManagerName" max="32767" attributes="0"/>
                           <Component id="PasswordFieldManager" alignment="1" pref="217" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
@@ -227,18 +225,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="TFManagerID" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="TFManagerName" min="-2" pref="37" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="PasswordFieldManager" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="ButtonManagerLogin" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="ButtonManagerRegistration" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace pref="38" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="TFManagerID">
+            <Component class="javax.swing.JTextField" name="TFManagerName">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
@@ -246,14 +244,12 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="99" red="99" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="managerid"/>
-                <Property name="selectionEnd" type="int" value="10"/>
-                <Property name="selectionStart" type="int" value="10"/>
+                <Property name="text" type="java.lang.String" value="managername"/>
               </Properties>
               <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TFManagerIDFocusGained"/>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TFManagerIDFocusLost"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TFManagerIDActionPerformed"/>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TFManagerNameFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TFManagerNameFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TFManagerNameActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="PasswordFieldManager">
@@ -272,12 +268,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PasswordFieldManagerActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="ButtonManagerLogin">
+            <Component class="javax.swing.JButton" name="ButtonManagerRegistration">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Login"/>
+                <Property name="text" type="java.lang.String" value="Register"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonManagerLoginActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonManagerRegistrationActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

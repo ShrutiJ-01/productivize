@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.example.gui;
+package productivizepackage;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -37,6 +37,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         ButtonAddTask = new javax.swing.JButton();
@@ -52,6 +54,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         ButtonAddLog = new javax.swing.JButton();
         ButtonEditLog = new javax.swing.JButton();
         ButtonDeleteLog = new javax.swing.JButton();
+        ComboBoxTaskStatus = new javax.swing.JComboBox<>();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -65,6 +68,13 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             }
         ));
         jScrollPane2.setViewportView(jTable2);
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,7 +144,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"12/87/09 12:00:00", "Finished woklogs", "73", "", null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -177,6 +187,13 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             }
         });
 
+        ComboBoxTaskStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "On-going", "To do", "Completed" }));
+        ComboBoxTaskStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxTaskStatusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,6 +205,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(ComboBoxTaskStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ButtonAddTask)
                         .addGap(18, 18, 18)
@@ -223,7 +242,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(ButtonAddTask)
                     .addComponent(ButtonEditTask)
-                    .addComponent(ButtonDeleteTask, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ButtonDeleteTask, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboBoxTaskStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(71, 71, 71)
@@ -269,6 +289,10 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonDeleteLogActionPerformed
 
+    private void ComboBoxTaskStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxTaskStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxTaskStatusActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -311,14 +335,17 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JButton ButtonDeleteTask;
     private javax.swing.JButton ButtonEditLog;
     private javax.swing.JButton ButtonEditTask;
+    private javax.swing.JComboBox<String> ComboBoxTaskStatus;
     private javax.swing.JTextField TFEmpID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
