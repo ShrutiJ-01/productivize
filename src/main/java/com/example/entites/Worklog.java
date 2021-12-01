@@ -14,8 +14,7 @@ public class Worklog {
     public Timestamp timestamp;
     public int employee_id;
 
-    public Worklog(int id, int task_id, int project_id, String work_done,int employee_id) {
-        this.id = id;
+    public Worklog(int task_id, int project_id, String work_done,int employee_id) {
         this.task_id = task_id;
         this.project_id = project_id;
         this.work_done = work_done;

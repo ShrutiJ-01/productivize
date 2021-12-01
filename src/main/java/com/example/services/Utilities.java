@@ -3,53 +3,74 @@ package com.example.services;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 
 public class Utilities {
+    private HashSet<Integer> pickedNumbers = new HashSet<>();
 
-    public int getRandomUID(){
+    //return a unique random number in the range 0 to the 
+    //given bottomLimit.
+    //returns -1 if no unique number is left in range
+    public int getRandomID(int bottomLimit){
+        boolean foundUniqueNumber=false;
+        int uniqueRandomNumber=-1;   
 
-        // SecureRandom randomGenerator = SecureRandom.getInstance("SHA1PRNG");         
-        // HashSet<Integer> set = new HashSet<>();
-        // while(set.size()<10)
-        //     set.add(randomGenerator.nextInt(9999));
-        // catch NoSuchAlgorithmException nsae
         try {
-            SecureRandom randomGenerator = SecureRandom.getInstance("SHA1PRNG");         
-            HashSet<Integer> set = new HashSet<>();
-            while (set.size()<10) {
-                set.add(randomGenerator.nextInt(9999));
+            SecureRandom randomGenerator = SecureRandom.getInstance("SHA1PRNG");  
+            while (!foundUniqueNumber) {
+                int number=randomGenerator.nextInt(bottomLimit);
+                if(isUnique(number)){
+                    foundUniqueNumber=true;
+                    uniqueRandomNumber = number;
+                }
             }
-            return 1;
+
+            return uniqueRandomNumber;
             
         } catch (NoSuchAlgorithmException nsae) {
-            return 1;
+            return -1;
 
+        }
+        catch (Exception e) {
+         e.printStackTrace();
+         return -1;
         }
 
     }
 
+    private boolean isUnique(int number){
 
-    public static List<Object[]> parseToObjectArray(ResultSet resultSet){
+       return pickedNumbers.add(number);
 
-        List<Object[]> records=new ArrayList<>();
-        try {
-            while(resultSet.next()){
-                int cols = resultSet.getMetaData().getColumnCount();
-                Object[] arr = new Object[cols];
-                for(int i=0; i<cols; i++){
-                    arr[i] = resultSet.getObject(i+1);
+    }
+
+
+    public static Object[][] parseToObjectArray(ResultSet resultSet){
+
+        int cols = 0,rows=0;
+        
+        try{
+            //calculate rows and columns in resultSet
+            cols=resultSet.getMetaData().getColumnCount();
+            resultSet.last();
+            rows=resultSet.getRow();
+            resultSet.first();
+            
+            //fill result set data into object array
+
+            Object[][] records = new Object[rows][cols];//deaclring empty object array
+            int i=0, j=0; //declaring index variables
+            for(i = 0;i < rows; i++){
+                for (j = 0; j < cols; j++) {
+                    records[i][j]=resultSet.getObject(j+1);
                 }
-                records.add(arr);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
+            return records;           
         }
-        return records;
+        catch(Exception e){
+            System.out.println("parse to object array : Error parsing ResultSet into Object[][]");
+            e.printStackTrace();
+            return new Object[0][0];
+        }
     }
 }

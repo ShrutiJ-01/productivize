@@ -5,17 +5,24 @@
 package com.example.gui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
+
+import com.example.entites.Employee;
+import com.example.tabledao.Authenticate;
 
 /**
  *
  * @author tanma
  */
-public class LoginSystem extends javax.swing.JFrame {
+public class RegisterationSystem extends javax.swing.JFrame {
+
+    private Authenticate authentication =new Authenticate();
 
     /**
-     * Creates new form LoginSystem
+     * Creates new form RegisterationSystem
      */
     
     //create borders
@@ -24,7 +31,7 @@ public class LoginSystem extends javax.swing.JFrame {
     
     
     
-    public LoginSystem() {
+    public RegisterationSystem() {
         initComponents();
         
         //center form
@@ -49,25 +56,25 @@ public class LoginSystem extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        LabelLoginSystem = new javax.swing.JLabel();
-        PanelLogin = new javax.swing.JPanel();
+        LabelRegistrationSystem = new javax.swing.JLabel();
+        PanelRegistration = new javax.swing.JPanel();
         LabelEmployee = new javax.swing.JLabel();
         LabelManager = new javax.swing.JLabel();
         PanelEmployee = new javax.swing.JPanel();
-        TFEmployeeID = new javax.swing.JTextField();
+        TFEmployeeName = new javax.swing.JTextField();
         PasswordFieldEmployee = new javax.swing.JPasswordField();
-        ButtonEmployeeLogin = new javax.swing.JButton();
+        ButtonEmployeeRegistration = new javax.swing.JButton();
         PanelManager = new javax.swing.JPanel();
-        TFManagerID = new javax.swing.JTextField();
+        TFManagerName = new javax.swing.JTextField();
         PasswordFieldManager = new javax.swing.JPasswordField();
-        ButtonManagerLogin = new javax.swing.JButton();
+        ButtonManagerRegistration = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        LabelLoginSystem.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        LabelLoginSystem.setText("Login System");
+        LabelRegistrationSystem.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        LabelRegistrationSystem.setText("Login System");
 
         LabelEmployee.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         LabelEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -87,20 +94,20 @@ public class LoginSystem extends javax.swing.JFrame {
             }
         });
 
-        TFEmployeeID.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TFEmployeeID.setForeground(new java.awt.Color(153, 153, 153));
-        TFEmployeeID.setText("employeeid");
-        TFEmployeeID.addFocusListener(new java.awt.event.FocusAdapter() {
+        TFEmployeeName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        TFEmployeeName.setForeground(new java.awt.Color(153, 153, 153));
+        TFEmployeeName.setText("employeename");
+        TFEmployeeName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                TFEmployeeIDFocusGained(evt);
+                TFEmployeeNameFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                TFEmployeeIDFocusLost(evt);
+                TFEmployeeNameFocusLost(evt);
             }
         });
-        TFEmployeeID.addActionListener(new java.awt.event.ActionListener() {
+        TFEmployeeName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFEmployeeIDActionPerformed(evt);
+                TFEmployeeNameActionPerformed(evt);
             }
         });
 
@@ -116,7 +123,12 @@ public class LoginSystem extends javax.swing.JFrame {
             }
         });
 
-        ButtonEmployeeLogin.setText("Login");
+        ButtonEmployeeRegistration.setText("Register");
+        ButtonEmployeeRegistration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonEmployeeRegistrationActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelEmployeeLayout = new javax.swing.GroupLayout(PanelEmployee);
         PanelEmployee.setLayout(PanelEmployeeLayout);
@@ -125,42 +137,39 @@ public class LoginSystem extends javax.swing.JFrame {
             .addGroup(PanelEmployeeLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(PanelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ButtonEmployeeLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                    .addGroup(PanelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(PasswordFieldEmployee)
-                        .addComponent(TFEmployeeID, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)))
+                    .addComponent(ButtonEmployeeRegistration, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                    .addComponent(PasswordFieldEmployee)
+                    .addComponent(TFEmployeeName, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         PanelEmployeeLayout.setVerticalGroup(
             PanelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelEmployeeLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(TFEmployeeID, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TFEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(PasswordFieldEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(ButtonEmployeeLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ButtonEmployeeRegistration, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
         PanelManager.setMinimumSize(new java.awt.Dimension(100, 100));
 
-        TFManagerID.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TFManagerID.setForeground(new java.awt.Color(153, 153, 153));
-        TFManagerID.setText("managerid");
-        TFManagerID.setSelectionEnd(10);
-        TFManagerID.setSelectionStart(10);
-        TFManagerID.addFocusListener(new java.awt.event.FocusAdapter() {
+        TFManagerName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        TFManagerName.setForeground(new java.awt.Color(153, 153, 153));
+        TFManagerName.setText("managername");
+        TFManagerName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                TFManagerIDFocusGained(evt);
+                TFManagerNameFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                TFManagerIDFocusLost(evt);
+                TFManagerNameFocusLost(evt);
             }
         });
-        TFManagerID.addActionListener(new java.awt.event.ActionListener() {
+        TFManagerName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFManagerIDActionPerformed(evt);
+                TFManagerNameActionPerformed(evt);
             }
         });
 
@@ -181,10 +190,10 @@ public class LoginSystem extends javax.swing.JFrame {
             }
         });
 
-        ButtonManagerLogin.setText("Login");
-        ButtonManagerLogin.addActionListener(new java.awt.event.ActionListener() {
+        ButtonManagerRegistration.setText("Register");
+        ButtonManagerRegistration.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonManagerLoginActionPerformed(evt);
+                ButtonManagerRegistrationActionPerformed(evt);
             }
         });
 
@@ -195,8 +204,8 @@ public class LoginSystem extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelManagerLayout.createSequentialGroup()
                 .addContainerGap(58, Short.MAX_VALUE)
                 .addGroup(PanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(ButtonManagerLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TFManagerID)
+                    .addComponent(ButtonManagerRegistration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TFManagerName)
                     .addComponent(PasswordFieldManager, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
                 .addGap(58, 58, 58))
         );
@@ -204,46 +213,46 @@ public class LoginSystem extends javax.swing.JFrame {
             PanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelManagerLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(TFManagerID, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TFManagerName, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(PasswordFieldManager, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(ButtonManagerLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ButtonManagerRegistration, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout PanelLoginLayout = new javax.swing.GroupLayout(PanelLogin);
-        PanelLogin.setLayout(PanelLoginLayout);
-        PanelLoginLayout.setHorizontalGroup(
-            PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelLoginLayout.createSequentialGroup()
+        javax.swing.GroupLayout PanelRegistrationLayout = new javax.swing.GroupLayout(PanelRegistration);
+        PanelRegistration.setLayout(PanelRegistrationLayout);
+        PanelRegistrationLayout.setHorizontalGroup(
+            PanelRegistrationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelRegistrationLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(LabelEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(LabelManager, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
-            .addGroup(PanelLoginLayout.createSequentialGroup()
+            .addGroup(PanelRegistrationLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(PanelEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(50, Short.MAX_VALUE))
-            .addGroup(PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLoginLayout.createSequentialGroup()
+            .addGroup(PanelRegistrationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistrationLayout.createSequentialGroup()
                     .addContainerGap(46, Short.MAX_VALUE)
                     .addComponent(PanelManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(52, Short.MAX_VALUE)))
         );
-        PanelLoginLayout.setVerticalGroup(
-            PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelLoginLayout.createSequentialGroup()
+        PanelRegistrationLayout.setVerticalGroup(
+            PanelRegistrationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelRegistrationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelRegistrationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LabelManager, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 25, Short.MAX_VALUE))
-            .addGroup(PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLoginLayout.createSequentialGroup()
+            .addGroup(PanelRegistrationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistrationLayout.createSequentialGroup()
                     .addContainerGap(60, Short.MAX_VALUE)
                     .addComponent(PanelManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(26, Short.MAX_VALUE)))
@@ -255,17 +264,17 @@ public class LoginSystem extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(144, 144, 144)
-                .addComponent(LabelLoginSystem)
+                .addComponent(LabelRegistrationSystem)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(PanelLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelRegistration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(LabelLoginSystem)
+                .addComponent(LabelRegistrationSystem)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PanelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(PanelRegistration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -303,29 +312,29 @@ public class LoginSystem extends javax.swing.JFrame {
         LabelEmployee.setForeground(Color.black); 
     }//GEN-LAST:event_LabelManagerMouseClicked
 
-    private void TFEmployeeIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFEmployeeIDFocusGained
-        // if the EmployeeID text = employeeid
+    private void TFEmployeeNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFEmployeeNameFocusGained
+        // if the EmployeeName text = employeename
         //clear the textfield
-        String employeeidValue = TFEmployeeID.getText().trim().toLowerCase();
+        String employeenameValue = TFEmployeeName.getText().trim().toLowerCase();
         
-        if(employeeidValue.equals("employeeid"))
+        if(employeenameValue.equals("employeename"))
         {
-            TFEmployeeID.setText("");
-            TFEmployeeID.setForeground(Color.black);
+            TFEmployeeName.setText("");
+            TFEmployeeName.setForeground(Color.black);
         }
         
-    }//GEN-LAST:event_TFEmployeeIDFocusGained
+    }//GEN-LAST:event_TFEmployeeNameFocusGained
 
-    private void TFEmployeeIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFEmployeeIDFocusLost
-        // if the textfield is empty -> set the text to 'employeeid'
-        String employeeidValue = TFEmployeeID.getText().trim().toLowerCase();
+    private void TFEmployeeNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFEmployeeNameFocusLost
+        // if the textfield is empty -> set the text to 'employeename'
+        String employeenameValue = TFEmployeeName.getText().trim().toLowerCase();
         
-        if(employeeidValue.equals("employeeid") || employeeidValue.equals(""))
+        if(employeenameValue.equals("employeename") || employeenameValue.equals(""))
         {
-            TFEmployeeID.setText("employeeid");
-            TFEmployeeID.setForeground(new Color(153,153,153));
+            TFEmployeeName.setText("employeename");
+            TFEmployeeName.setForeground(new Color(153,153,153));
         }
-    }//GEN-LAST:event_TFEmployeeIDFocusLost
+    }//GEN-LAST:event_TFEmployeeNameFocusLost
 
     private void PasswordFieldEmployeeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PasswordFieldEmployeeFocusGained
         // if the PasswordFieldEmployee field = password
@@ -350,28 +359,28 @@ public class LoginSystem extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PasswordFieldEmployeeFocusLost
 
-    private void TFManagerIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFManagerIDFocusGained
-        // if the ManagerID text = managerid
+    private void TFManagerNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFManagerNameFocusGained
+        // if the ManagerName text = managername
         //clear the textfield
-        String manageridValue = TFManagerID.getText().trim().toLowerCase();
+        String managernameValue = TFManagerName.getText().trim().toLowerCase();
         
-        if(manageridValue.equals("managerid"))
+        if(managernameValue.equals("managername"))
         {
-            TFManagerID.setText("");
-            TFManagerID.setForeground(Color.black);
+            TFManagerName.setText("");
+            TFManagerName.setForeground(Color.black);
         }
-    }//GEN-LAST:event_TFManagerIDFocusGained
+    }//GEN-LAST:event_TFManagerNameFocusGained
 
-    private void TFManagerIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFManagerIDFocusLost
-        // if the textfield is empty -> set the text to 'managerid'
-        String manageridValue = TFManagerID.getText().trim().toLowerCase();
+    private void TFManagerNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFManagerNameFocusLost
+        // if the textfield is empty -> set the text to 'managername'
+        String managernameValue = TFManagerName.getText().trim().toLowerCase();
         
-        if(manageridValue.equals("managerid") || manageridValue.equals(""))
+        if(managernameValue.equals("managername") || managernameValue.equals(""))
         {
-            TFManagerID.setText("managerid");
-            TFManagerID.setForeground(new Color(153,153,153));
+            TFManagerName.setText("managername");
+            TFManagerName.setForeground(new Color(153,153,153));
         }
-    }//GEN-LAST:event_TFManagerIDFocusLost
+    }//GEN-LAST:event_TFManagerNameFocusLost
 
     private void PasswordFieldManagerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PasswordFieldManagerFocusGained
         // if the PasswordFieldManager field = password
@@ -398,19 +407,32 @@ public class LoginSystem extends javax.swing.JFrame {
 
     private void PasswordFieldManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldManagerActionPerformed
         // TODO add your handling code here:
+
+
     }//GEN-LAST:event_PasswordFieldManagerActionPerformed
 
-    private void TFEmployeeIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFEmployeeIDActionPerformed
+    private void TFEmployeeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFEmployeeNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TFEmployeeIDActionPerformed
+    }//GEN-LAST:event_TFEmployeeNameActionPerformed
 
-    private void TFManagerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFManagerIDActionPerformed
+    private void TFManagerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFManagerNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TFManagerIDActionPerformed
+    }//GEN-LAST:event_TFManagerNameActionPerformed
 
-    private void ButtonManagerLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonManagerLoginActionPerformed
+    private void ButtonManagerRegistrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonManagerRegistrationActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonManagerLoginActionPerformed
+    }//GEN-LAST:event_ButtonManagerRegistrationActionPerformed
+    
+    private void ButtonEmployeeRegistrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonManagerRegistrationActionPerformed
+        // TODO add your handling code here:
+        try {
+            //Employee employee = authentication.registerEmployee(first_name, last_name, password);
+            //EmployeeDashboard.main(args);            
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Exception occureed while rehistering employee");
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -429,37 +451,38 @@ public class LoginSystem extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterationSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterationSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterationSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterationSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginSystem().setVisible(true);
+                new RegisterationSystem().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonEmployeeLogin;
-    private javax.swing.JButton ButtonManagerLogin;
+    private javax.swing.JButton ButtonEmployeeRegistration;
+    private javax.swing.JButton ButtonManagerRegistration;
     private javax.swing.JLabel LabelEmployee;
-    private javax.swing.JLabel LabelLoginSystem;
     private javax.swing.JLabel LabelManager;
+    private javax.swing.JLabel LabelRegistrationSystem;
     private javax.swing.JPanel PanelEmployee;
-    private javax.swing.JPanel PanelLogin;
     private javax.swing.JPanel PanelManager;
+    private javax.swing.JPanel PanelRegistration;
     private javax.swing.JPasswordField PasswordFieldEmployee;
     private javax.swing.JPasswordField PasswordFieldManager;
-    private javax.swing.JTextField TFEmployeeID;
-    private javax.swing.JTextField TFManagerID;
+    private javax.swing.JTextField TFEmployeeName;
+    private javax.swing.JTextField TFManagerName;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

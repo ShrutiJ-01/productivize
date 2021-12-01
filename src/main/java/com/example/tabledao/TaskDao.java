@@ -7,12 +7,14 @@ import java.util.logging.Logger;
 
 import com.example.entites.Task;
 import com.example.productivize.App;
+import com.example.services.Utilities;
 
 public class TaskDao {
 
 	private String tableName;
 	private Connection connection=DatabaseConnector.getConnection();
     private static final Logger log;
+	private Utilities taskUtilities=new Utilities();
 
     static {
         System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$-7s] %5$s %n");
@@ -27,30 +29,37 @@ public class TaskDao {
     }
 	
 	//takes Task object as an argument
-	public boolean insert(Task task) 
-	{
+	public boolean insert(Task task) throws Exception{
 
-        log.info("Insert new Task");
-        try 
-        {
-            PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO " + tableName
-                    + " (t_id, t_name, employee_id, status_id, ms_id, project_id) VALUES (?, ?, ?, ?, ?, ?);");
-            insertStatement.setInt(1, task.id);
-            insertStatement.setString(2, task.name);
-            insertStatement.setInt(3, task.employee_id);
-            insertStatement.setInt(4, task.status_id);
-            insertStatement.setInt(5, task.ms_id);
-            insertStatement.setInt(6, task.project_id);
-            insertStatement.executeUpdate();
-            return true;
-        } 
-        
-        catch (SQLException e) 
-        {
-            log.info("TaskDao: Could not insert Task into the table");
-            e.printStackTrace();
-            return false;
-        }
+		task.id=taskUtilities.getRandomID(999999);
+		if (task.id == -1) {
+			// if all ids in between 0 to 999999 are taken throw exception
+			log.info("TaskDao : Unable to generate a random Unique Id for task");
+			throw new Exception("Unable to generate taskID");
+		}
+		else{
+			log.info("Insert new Task");
+			try 
+			{
+				PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO " + tableName
+						+ " (t_id, t_name, employee_id, status_id, ms_id, project_id) VALUES (?, ?, ?, ?, ?, ?);");
+				insertStatement.setInt(1, task.id);
+				insertStatement.setString(2, task.name);
+				insertStatement.setInt(3, task.employee_id);
+				insertStatement.setInt(4, task.status_id);
+				insertStatement.setInt(5, task.ms_id);
+				insertStatement.setInt(6, task.project_id);
+				insertStatement.executeUpdate();
+				return true;
+			} 
+			
+			catch (SQLException e) 
+			{
+				log.info("TaskDao: Could not insert Task into the table");
+				e.printStackTrace();
+				return false;
+			}
+		}
 
     }
 	
