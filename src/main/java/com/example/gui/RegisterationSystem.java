@@ -2,17 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package productivizepackage;
+package com.example.gui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
+
+import com.example.entites.Employee;
+import com.example.tabledao.Authenticate;
 
 /**
  *
  * @author tanma
  */
 public class RegisterationSystem extends javax.swing.JFrame {
+
+    private Authenticate authentication =new Authenticate();
 
     /**
      * Creates new form RegisterationSystem
@@ -117,6 +124,11 @@ public class RegisterationSystem extends javax.swing.JFrame {
         });
 
         ButtonEmployeeRegistration.setText("Register");
+        ButtonEmployeeRegistration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonEmployeeRegistrationActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelEmployeeLayout = new javax.swing.GroupLayout(PanelEmployee);
         PanelEmployee.setLayout(PanelEmployeeLayout);
@@ -395,6 +407,8 @@ public class RegisterationSystem extends javax.swing.JFrame {
 
     private void PasswordFieldManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldManagerActionPerformed
         // TODO add your handling code here:
+
+
     }//GEN-LAST:event_PasswordFieldManagerActionPerformed
 
     private void TFEmployeeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFEmployeeNameActionPerformed
@@ -408,6 +422,17 @@ public class RegisterationSystem extends javax.swing.JFrame {
     private void ButtonManagerRegistrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonManagerRegistrationActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonManagerRegistrationActionPerformed
+    
+    private void ButtonEmployeeRegistrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonManagerRegistrationActionPerformed
+        // TODO add your handling code here:
+        try {
+            //Employee employee = authentication.registerEmployee(first_name, last_name, password);
+            //EmployeeDashboard.main(args);            
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Exception occureed while rehistering employee");
+        }
+    }
 
     /**
      * @param args the command line arguments

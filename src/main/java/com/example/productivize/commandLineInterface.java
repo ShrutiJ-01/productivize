@@ -58,23 +58,14 @@ public class commandLineInterface {
         log.info("Delete succesful ? : "+res);
 
         log.info("---------------------------------------------------------");
-        log.info("TASKSDAO.JAVA ");   
-        Task task=new Task(71, "check employee dao", 108, 402, 301, 11);
-        TaskDao taskDao=new TaskDao();
-        result=taskDao.update(task);  
-        log.info("Update succesful ? : "+result); 
-        result=taskDao.delete(task.id);
-        log.info("Delete succesful ? : "+result);
-
-        log.info("---------------------------------------------------------");
         log.info("PROJECTSDAO.JAVA ");   
-        Project project=new Project(11, "kijugo", "05/11/21","08/11/21", 207, 997);
+        Project project=new Project("kijugo", "05/11/21","08/11/21", manager1.id, 1);
         ProjectDao projectDao=new ProjectDao();
+        result= projectDao.insert(project);
+        log.info("Insert succesful ? : "+result);
         result=projectDao.update(project);
         log.info("Update succesful ? : "+result); 
-        result= projectDao.insert(new Project(8765, "new project", "some start", "some end", 207, 997));
-        log.info("Insert succesful ? : "+result);
-        result=projectDao.delete(8765);
+        result=projectDao.delete(project.id);
         log.info("Delete succesful ? : "+result);
         log.info("Querying ongoing projects for manager_id 12 | Entries expected : 1 ");
         queryResultSet=projectDao.getOngoingProjectsForManager(207);
@@ -88,27 +79,42 @@ public class commandLineInterface {
 
         log.info("---------------------------------------------------------");
         log.info("MILESTONESDAO.JAVA ");   
-        Milestone milestone=new Milestone(301, "Release Build", "09/09/21", "create release build", 11, 52);
+        Milestone milestone=new Milestone("Release Build", "09/09/21", "create release build", 11, 2);
         MilestonesDao milestoneDao=new MilestonesDao();
+        result= milestoneDao.insert(milestone);
+        log.info("Insert succesful ? : "+result);
+        milestone.name="updated name of milestone";
         result=milestoneDao.update(milestone);
         log.info("Update succesful ? : "+result); 
-        result= milestoneDao.insert(new Milestone(352, "Debug Build", "09/09/21", "create release build", 11, 52));
-        log.info("Insert succesful ? : "+result);
-        result=milestoneDao.delete(352);
+        result=milestoneDao.delete(milestone.id);
         log.info("Delete succesful ? : "+result);
         log.info("Querying Milestones for project_id 12 | Entries expected : 2 ");
         queryResultSet= milestoneDao.getMilestonesForProject(12);
         log.info("Entries found :  "+queryResultSet.getRow());
 
+
+        log.info("---------------------------------------------------------");
+        log.info("TASKSDAO.JAVA ");   
+        Task task=new Task("check employee dao", 108, 402, 301, 11);
+        TaskDao taskDao=new TaskDao();
+        result=taskDao.insert(task);
+        log.info("Insert succesful ? : "+result); 
+        task.name="updated task name";
+        result=taskDao.update(task);  
+        log.info("Update succesful ? : "+result); 
+        result=taskDao.delete(task.id);
+        log.info("Delete succesful ? : "+result);
+
         log.info("---------------------------------------------------------");
         log.info("WORKLOGDAO.JAVA ");   
-        Worklog worklog=new Worklog(1, 71, 11, "new worklog created", 108);
+        Worklog worklog=new Worklog(71, 11, "new worklog created", 108);
         WorklogDao worklogDao=new WorklogDao();
+        result= worklogDao.insert(worklog);
+        log.info("Insert succesful ? : "+result);
+        worklog.work_done="updated worklog";
         result=worklogDao.update(worklog);
         log.info("Update succesful ? : "+result); 
-        result= worklogDao.insert(new Worklog(352, 71, 11, "new worklog created", 101));
-        log.info("Insert succesful ? : "+result);
-        result=worklogDao.delete(352);
+        result=worklogDao.delete(worklog.id);
         log.info("Delete succesful ? : "+result);
 
         log.info("---------------------------------------------------------");

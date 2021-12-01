@@ -2,15 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package productivizepackage;
+package com.example.gui;
 
 import javax.swing.table.DefaultTableModel;
+
+import com.example.services.Utilities;
+import com.example.viewsdao.EmployeeTaskView;
+import com.example.viewsdao.EmployeeWorklogView;
 
 /**
  *
  * @author tanma
  */
 public class EmployeeDashboard extends javax.swing.JFrame {
+    private EmployeeTaskView employeeTaskView=new EmployeeTaskView();
+    private EmployeeWorklogView employeeWorklogView=new EmployeeWorklogView();
 
     /**
      * Creates new form EmployeeDashboard
@@ -20,8 +26,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     DefaultTableModel model;
     
     public EmployeeDashboard() {
-        initComponents();
-        
+        initComponents();  
         
         
     }
@@ -83,13 +88,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         jLabel2.setText("Employee ID:");
 
-        ButtonAddTask.setText("Add a task");
-        ButtonAddTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonAddTaskActionPerformed(evt);
-            }
-        });
-
         ButtonEditTask.setText("Edit a task");
         ButtonEditTask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,23 +95,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             }
         });
 
-        ButtonDeleteTask.setText("Delete a task");
-        ButtonDeleteTask.setMaximumSize(new java.awt.Dimension(83, 23));
-        ButtonDeleteTask.setMinimumSize(new java.awt.Dimension(83, 23));
-        ButtonDeleteTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonDeleteTaskActionPerformed(evt);
-            }
-        });
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
+        Utilities.parseToObjectArray(employeeTaskView.getTodoTasks(102)),
             new String [] {
                 "Task ID", "Task name", "Project ID", "Project name", "Milestones"
             }
@@ -143,13 +126,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         jLabel4.setText("Recent Worklog");
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
+            Utilities.parseToObjectArray(employeeWorklogView.getWorklogsOfEmployee(102)),            
             new String [] {
                 "Timestamp", "Work done", "Task ID", "Task name", "Project name"
             }
@@ -261,17 +238,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonDeleteTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteTaskActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonDeleteTaskActionPerformed
-
     private void ButtonEditTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditTaskActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonEditTaskActionPerformed
-
-    private void ButtonAddTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddTaskActionPerformed
-        //to add a new task in the 'TASKS' table
-    }//GEN-LAST:event_ButtonAddTaskActionPerformed
 
     private void TFEmpIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFEmpIDActionPerformed
         // fetch the ID of the signed-in employee in this TextField
@@ -290,8 +259,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonDeleteLogActionPerformed
 
     private void ComboBoxTaskStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxTaskStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBoxTaskStatusActionPerformed
+
+        
+    }
 
     /**
      * @param args the command line arguments
