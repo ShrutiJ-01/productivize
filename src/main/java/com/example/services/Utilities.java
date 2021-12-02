@@ -5,7 +5,11 @@ import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.util.HashSet;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class Utilities {
+
+    //HashSet that stpres picked Random Numbers
     private HashSet<Integer> pickedNumbers = new HashSet<>();
 
     //return a unique random number in the range 0 to the 
@@ -44,6 +48,13 @@ public class Utilities {
 
     }
 
+    public static String getPasswordHash(String plainTextPassword){
+        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt(16));                    
+    }
+
+    public static boolean verifyEnteredPassword(String plainTextPassword,String storedHash){
+        return BCrypt.checkpw(plainTextPassword, storedHash);
+    }
 
     public static Object[][] parseToObjectArray(ResultSet resultSet){
 
