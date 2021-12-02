@@ -2,21 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.example.gui;
+package productivizepackage;
 
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
-import com.example.services.Utilities;
-import com.example.viewsdao.EmployeeTaskView;
-import com.example.viewsdao.EmployeeWorklogView;
 
 /**
  *
  * @author tanma
  */
 public class EmployeeDashboard extends javax.swing.JFrame {
-    private EmployeeTaskView employeeTaskView=new EmployeeTaskView();
-    private EmployeeWorklogView employeeWorklogView=new EmployeeWorklogView();
 
     /**
      * Creates new form EmployeeDashboard
@@ -26,7 +24,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     DefaultTableModel model;
     
     public EmployeeDashboard() {
-        initComponents();  
+        initComponents();
+        
         
         
     }
@@ -46,9 +45,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        ButtonAddTask = new javax.swing.JButton();
         ButtonEditTask = new javax.swing.JButton();
-        ButtonDeleteTask = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         TFEmpID = new javax.swing.JTextField();
@@ -96,7 +93,13 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-        Utilities.parseToObjectArray(employeeTaskView.getTodoTasks(102)),
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
             new String [] {
                 "Task ID", "Task name", "Project ID", "Project name", "Milestones"
             }
@@ -126,7 +129,13 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         jLabel4.setText("Recent Worklog");
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            Utilities.parseToObjectArray(employeeWorklogView.getWorklogsOfEmployee(102)),            
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
             new String [] {
                 "Timestamp", "Work done", "Task ID", "Task name", "Project name"
             }
@@ -185,11 +194,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(ComboBoxTaskStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ButtonAddTask)
-                        .addGap(18, 18, 18)
-                        .addComponent(ButtonEditTask, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ButtonDeleteTask, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ButtonEditTask, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -217,9 +222,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(ButtonAddTask)
                     .addComponent(ButtonEditTask)
-                    .addComponent(ButtonDeleteTask, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboBoxTaskStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,30 +241,71 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonEditTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditTaskActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonEditTaskActionPerformed
-
     private void TFEmpIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFEmpIDActionPerformed
         // fetch the ID of the signed-in employee in this TextField
     }//GEN-LAST:event_TFEmpIDActionPerformed
 
     private void ButtonAddLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddLogActionPerformed
         // TODO add your handling code here:
+         JTextField timestamp = new JTextField();
+JTextField workdone = new JTextField();
+JTextField taskid = new JTextField();
+JTextField taskname = new JTextField();
+JTextField projectname = new JTextField();
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Time Stamp"),
+        timestamp,
+        new JLabel("Work done"),
+        workdone,
+        new JLabel("Task ID"),
+        taskid,
+        new JLabel("Task name"),
+        taskname,
+        new JLabel("Project name"),
+        projectname,
+};
+JOptionPane.showConfirmDialog(null, inputs, "Add a log", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_ButtonAddLogActionPerformed
 
     private void ButtonEditLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditLogActionPerformed
         // TODO add your handling code here:
+        JTextField timestamp = new JTextField();
+
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Timestamp"),
+        timestamp,
+        
+};
+JOptionPane.showConfirmDialog(null, inputs, "Edit a log", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_ButtonEditLogActionPerformed
 
     private void ButtonDeleteLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteLogActionPerformed
         // TODO add your handling code here:
+         JTextField timestamp = new JTextField();
+
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Timestamp"),
+        timestamp,
+        
+};
+JOptionPane.showConfirmDialog(null, inputs, "Delete a log", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_ButtonDeleteLogActionPerformed
 
     private void ComboBoxTaskStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxTaskStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxTaskStatusActionPerformed
 
+    private void ButtonEditTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditTaskActionPerformed
+        // TODO add your handling code here:
+        JTextField taskid = new JTextField();
+
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Task ID"),
+        taskid,
         
-    }
+};
+JOptionPane.showConfirmDialog(null, inputs, "Delete a task", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_ButtonEditTaskActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,9 +344,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAddLog;
-    private javax.swing.JButton ButtonAddTask;
     private javax.swing.JButton ButtonDeleteLog;
-    private javax.swing.JButton ButtonDeleteTask;
     private javax.swing.JButton ButtonEditLog;
     private javax.swing.JButton ButtonEditTask;
     private javax.swing.JComboBox<String> ComboBoxTaskStatus;

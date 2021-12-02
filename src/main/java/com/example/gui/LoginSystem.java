@@ -2,11 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.example.gui;
+package productivizepackage;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
-import javax.swing.JPasswordField;
 import javax.swing.border.Border;
 
 /**
@@ -399,9 +398,6 @@ public class LoginSystem extends javax.swing.JFrame {
 
     private void PasswordFieldManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldManagerActionPerformed
         // TODO add your handling code here:
-        JPasswordField passwordField = (JPasswordField)evt.getSource();
-        char[] password = passwordField.getPassword();
-        System.out.println(password);
     }//GEN-LAST:event_PasswordFieldManagerActionPerformed
 
     private void TFEmployeeIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFEmployeeIDActionPerformed
@@ -415,7 +411,6 @@ public class LoginSystem extends javax.swing.JFrame {
     private void ButtonManagerLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonManagerLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonManagerLoginActionPerformed
-
 
     /**
      * @param args the command line arguments

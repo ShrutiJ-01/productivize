@@ -2,8 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.example.gui;
+package productivizepackage;
 
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -58,6 +63,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         ButtonMEditTask = new javax.swing.JButton();
         ButtonMDeleteTask = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        ComboBoxProjectStatus = new javax.swing.JComboBox<>();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -182,16 +188,16 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Employee ID", "Employee name", "Task ID", "Task name", "Milestone name"
+                "Employee ID", "Employee name", "Task ID", "Task name", "Milestone name", "Task Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -226,6 +232,13 @@ public class ManagerDashboard extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("Tasks");
 
+        ComboBoxProjectStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "On-going", "To do", "Completed" }));
+        ComboBoxProjectStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxProjectStatusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -239,6 +252,8 @@ public class ManagerDashboard extends javax.swing.JFrame {
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ComboBoxProjectStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(ButtonAddProject)
                                 .addGap(18, 18, 18)
@@ -258,7 +273,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ButtonAddMilestone)
                         .addGap(18, 18, 18)
-                        .addComponent(ButtonEditMilestone, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonEditMilestone, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(ButtonDeleteMilestone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33))
@@ -285,7 +300,8 @@ public class ManagerDashboard extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(ButtonAddProject)
                     .addComponent(ButtonEditProject)
-                    .addComponent(ButtonDeleteProject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ButtonDeleteProject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboBoxProjectStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
@@ -312,14 +328,45 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
     private void ButtonDeleteProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteProjectActionPerformed
         // TODO add your handling code here:
+        JTextField projectid = new JTextField();
+
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Project ID"),
+        projectid,
+        
+};
+JOptionPane.showConfirmDialog(null, inputs, "Delete a project", JOptionPane.PLAIN_MESSAGE);
+       
+        
     }//GEN-LAST:event_ButtonDeleteProjectActionPerformed
 
     private void ButtonEditProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditProjectActionPerformed
         // TODO add your handling code here:
+        JTextField projectid = new JTextField();
+
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Project ID"),
+        projectid,
+        
+};
+JOptionPane.showConfirmDialog(null, inputs, "Edit a project", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_ButtonEditProjectActionPerformed
 
     private void ButtonAddProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddProjectActionPerformed
-        //to add a new project in the 'PROJECT' table
+        //to add a new project in the 'PROJECT' table with input dialog box
+        JTextField projectname = new JTextField();
+JTextField startdate = new JTextField();
+JTextField duedate = new JTextField();
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Project name"),
+        projectname,
+        new JLabel("Start date"),
+        startdate,
+        new JLabel("Due date"),
+        duedate
+};
+JOptionPane.showConfirmDialog(null, inputs, "Add a project", JOptionPane.PLAIN_MESSAGE);
+        
     }//GEN-LAST:event_ButtonAddProjectActionPerformed
 
     private void TFEmpIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFEmpIDActionPerformed
@@ -328,27 +375,90 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
     private void ButtonDeleteMilestoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteMilestoneActionPerformed
         // TODO add your handling code here:
+        JTextField milestoneid = new JTextField();
+
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Milestone ID"),
+        milestoneid,
+        
+};
+JOptionPane.showConfirmDialog(null, inputs, "Delete a milestone", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_ButtonDeleteMilestoneActionPerformed
 
     private void ButtonEditMilestoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditMilestoneActionPerformed
         // TODO add your handling code here:
+               JTextField milestoneid = new JTextField();
+
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Milestone ID"),
+        milestoneid,
+        
+};
+JOptionPane.showConfirmDialog(null, inputs, "Edit a milestone", JOptionPane.PLAIN_MESSAGE);
+        
     }//GEN-LAST:event_ButtonEditMilestoneActionPerformed
 
     private void ButtonAddMilestoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddMilestoneActionPerformed
         // TODO add your handling code here:
+        JTextField milestonename = new JTextField();
+JTextField deliverables = new JTextField();
+JTextField duedate = new JTextField();
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Milestone name"),
+        milestonename,
+        new JLabel("Deliverables"),
+        deliverables,
+        new JLabel("Due date"),
+        duedate
+};
+JOptionPane.showConfirmDialog(null, inputs, "Add a Milestone", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_ButtonAddMilestoneActionPerformed
 
     private void ButtonMAddTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonMAddTaskActionPerformed
         // TODO add your handling code here:
+        JTextField taskname = new JTextField();
+JTextField employeename = new JTextField();
+JTextField milestonename = new JTextField();
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Task name"),
+        taskname,
+        new JLabel("Assign to"),
+        employeename,
+        new JLabel("Milestone name"),
+        milestonename
+};
+JOptionPane.showConfirmDialog(null, inputs, "Add a Task", JOptionPane.PLAIN_MESSAGE);
+        
     }//GEN-LAST:event_ButtonMAddTaskActionPerformed
 
     private void ButtonMEditTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonMEditTaskActionPerformed
         // TODO add your handling code here:
+        JTextField taskid = new JTextField();
+
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Task ID"),
+        taskid,
+        
+};
+JOptionPane.showConfirmDialog(null, inputs, "Edit a task", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_ButtonMEditTaskActionPerformed
 
     private void ButtonMDeleteTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonMDeleteTaskActionPerformed
         // TODO add your handling code here:
+        JTextField taskid = new JTextField();
+
+final JComponent[] inputs = new JComponent[] {
+        new JLabel("Task ID"),
+        taskid,
+        
+};
+JOptionPane.showConfirmDialog(null, inputs, "Delete a task", JOptionPane.PLAIN_MESSAGE);
+        
     }//GEN-LAST:event_ButtonMDeleteTaskActionPerformed
+
+    private void ComboBoxProjectStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxProjectStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxProjectStatusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -396,6 +506,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
     private javax.swing.JButton ButtonMAddTask;
     private javax.swing.JButton ButtonMDeleteTask;
     private javax.swing.JButton ButtonMEditTask;
+    private javax.swing.JComboBox<String> ComboBoxProjectStatus;
     private javax.swing.JTextField TFEmpID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
