@@ -31,7 +31,7 @@ public class EmployeeTaskView {
 
     public ResultSet getTodoTasks(int employee_id) { // function body
         try {
-            PreparedStatement todoTasks = connection.prepareStatement("select t_name,t_id,m_name,p_name from "
+            PreparedStatement todoTasks = connection.prepareStatement("select t_id,t_name,p_id,p_name,m_name from "
                     + viewName + " WHERE e_id = ? AND status_id = " + statusTodo + "",
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             todoTasks.setInt(1, employee_id);
@@ -56,7 +56,7 @@ public class EmployeeTaskView {
     public ResultSet getDoingTasks(int employee_id) { // function body
 
         try {
-            PreparedStatement doingTasks = connection.prepareStatement("select t_name,t_id,m_name,p_name from "
+            PreparedStatement doingTasks = connection.prepareStatement("select t_id,t_name,p_id,p_name,m_name from "
                     + viewName + " WHERE e_id = ? AND status_id = " + statusDoing + "",
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             doingTasks.setInt(1, employee_id);
@@ -82,7 +82,7 @@ public class EmployeeTaskView {
                                                           // int statusCompleted = 403;
 
         try {
-            PreparedStatement completedTasks = connection.prepareStatement("select t_name,t_id,m_name,p_name from "
+            PreparedStatement completedTasks = connection.prepareStatement("select t_id,t_name,p_id,p_name,m_name from "
                     + viewName + " WHERE e_id = ? AND status_id = " + statusCompleted + "",
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             completedTasks.setInt(1, employee_id);

@@ -1,18 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.example.gui;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
-import javax.swing.JPasswordField;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
-/**
- *
- * @author tanma
- */
+import com.example.entites.Employee;
+import com.example.entites.Manager;
+import com.example.tabledao.Authenticate;
+
+
 public class LoginSystem extends javax.swing.JFrame {
 
     /**
@@ -68,7 +66,7 @@ public class LoginSystem extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         LabelLoginSystem.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        LabelLoginSystem.setText("Login System");
+        LabelLoginSystem.setText("Log into your account");
 
         LabelEmployee.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         LabelEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -99,11 +97,7 @@ public class LoginSystem extends javax.swing.JFrame {
                 TFEmployeeIDFocusLost(evt);
             }
         });
-        TFEmployeeID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFEmployeeIDActionPerformed(evt);
-            }
-        });
+  
 
         PasswordFieldEmployee.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         PasswordFieldEmployee.setForeground(new java.awt.Color(153, 153, 153));
@@ -118,6 +112,11 @@ public class LoginSystem extends javax.swing.JFrame {
         });
 
         ButtonEmployeeLogin.setText("Login");
+        ButtonEmployeeLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonEmployeeLoginActionPerformed(evt,TFEmployeeID.getText(),String.valueOf(PasswordFieldEmployee.getPassword()));
+            }
+        });
 
         javax.swing.GroupLayout PanelEmployeeLayout = new javax.swing.GroupLayout(PanelEmployee);
         PanelEmployee.setLayout(PanelEmployeeLayout);
@@ -159,11 +158,6 @@ public class LoginSystem extends javax.swing.JFrame {
                 TFManagerIDFocusLost(evt);
             }
         });
-        TFManagerID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFManagerIDActionPerformed(evt);
-            }
-        });
 
         PasswordFieldManager.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         PasswordFieldManager.setForeground(new java.awt.Color(153, 153, 153));
@@ -176,16 +170,11 @@ public class LoginSystem extends javax.swing.JFrame {
                 PasswordFieldManagerFocusLost(evt);
             }
         });
-        PasswordFieldManager.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PasswordFieldManagerActionPerformed(evt);
-            }
-        });
 
         ButtonManagerLogin.setText("Login");
         ButtonManagerLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonManagerLoginActionPerformed(evt);
+                ButtonManagerLoginActionPerformed(evt,TFManagerID.getText(),String.valueOf(PasswordFieldManager.getPassword()));
             }
         });
 
@@ -397,35 +386,33 @@ public class LoginSystem extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PasswordFieldManagerFocusLost
 
-    private void PasswordFieldManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldManagerActionPerformed
-        // TODO add your handling code here:
-        JPasswordField passwordField = (JPasswordField)evt.getSource();
-        char[] password = passwordField.getPassword();
-        System.out.println(password);
-    }//GEN-LAST:event_PasswordFieldManagerActionPerformed
-
-    private void TFEmployeeIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFEmployeeIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFEmployeeIDActionPerformed
-
-    private void TFManagerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFManagerIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFManagerIDActionPerformed
-
-    private void ButtonManagerLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonManagerLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonManagerLoginActionPerformed
-
+    private void ButtonEmployeeLoginActionPerformed(java.awt.event.ActionEvent evt,String uid,String password) {//GEN-FIRST:event_ButtonManagerLoginActionPerformed
+        try {
+            Employee loggedInEmployee=authentication.loginEmployee(Integer.parseInt(uid), password);
+            
+            JOptionPane.showMessageDialog(null, "You have succesfully logged in!");
+            
+            dispose();//close the login window
+            EmployeeDashboard.build(loggedInEmployee);//build the employee dashboard
+        } catch (Exception e) {
+         JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+    }
+    
+    private void ButtonManagerLoginActionPerformed(java.awt.event.ActionEvent evt,String uid,String password) {//GEN-FIRST:event_ButtonManagerLoginActionPerformed
+        try {
+            Manager loggedInManager=authentication.loginManager(Integer.parseInt(uid), password);
+            System.out.println(" name is : "+loggedInManager.first_name);
+            JOptionPane.showMessageDialog(null, "You have succesfully logged in!");
+        } catch (Exception e) {
+         JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -442,7 +429,7 @@ public class LoginSystem extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LoginSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -466,5 +453,6 @@ public class LoginSystem extends javax.swing.JFrame {
     private javax.swing.JTextField TFEmployeeID;
     private javax.swing.JTextField TFManagerID;
     private javax.swing.JLabel jLabel2;
+    private Authenticate authentication=new Authenticate();
     // End of variables declaration//GEN-END:variables
 }

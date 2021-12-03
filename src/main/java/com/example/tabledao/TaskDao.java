@@ -109,4 +109,26 @@ public class TaskDao {
 	        }
 
 	    }
+		public boolean update(int task_id,int task_status) 
+		{
+   
+			   log.info("Update Task");
+			   try 
+			   {
+				   PreparedStatement updateStatement = connection.prepareStatement("UPDATE " + tableName
+						   + " SET status_id = ?  WHERE t_id = ?;");
+				   updateStatement.setInt(1, task_status);
+				   updateStatement.setInt(2, task_id);
+				   updateStatement.executeUpdate();
+				   return true;
+   
+			   } 
+			   catch (SQLException e) 
+			   {
+				   log.info("TaskDao: Could not update task in the table");
+				   e.printStackTrace();
+				   return false;
+			   }
+   
+		   }
 }
