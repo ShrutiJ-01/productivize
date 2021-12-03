@@ -75,8 +75,14 @@ public class Utilities {
                 for (j = 0; j < cols; j++) {
                     records[i][j]=resultSet.getObject(j+1);
                 }
+                resultSet.next();
             }
             return records;           
+        }
+        catch(NullPointerException e){
+            System.out.println("parse to object array : Null was resuturned as Result Set");
+            e.printStackTrace();
+            return new Object[0][0];
         }
         catch(Exception e){
             System.out.println("parse to object array : Error parsing ResultSet into Object[][]");

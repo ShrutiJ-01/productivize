@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package productivizepackage;
+
+package com.example.gui;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -10,6 +7,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import com.example.entites.Manager;
+import com.example.viewsdao.ManagerView;
 
 /**
  *
@@ -25,9 +25,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
     DefaultTableModel model;
     
     public ManagerDashboard() {
-        initComponents();
-        
-        
+        initComponents();  
         
     }
 
@@ -81,7 +79,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
-        jLabel1.setText("Hello!");
+        jLabel1.setText("Hello !");
 
         jLabel2.setText("Manager ID:");
 
@@ -463,12 +461,8 @@ JOptionPane.showConfirmDialog(null, inputs, "Delete a task", JOptionPane.PLAIN_M
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    public static void build(Manager loggedInManager) {
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -491,7 +485,7 @@ JOptionPane.showConfirmDialog(null, inputs, "Delete a task", JOptionPane.PLAIN_M
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManagerDashboard().setVisible(true);
+                new ManagerDashboard(loggedInManager).setVisible(true);
             }
         });
     }
@@ -521,5 +515,7 @@ JOptionPane.showConfirmDialog(null, inputs, "Delete a task", JOptionPane.PLAIN_M
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
+    private Manager manager;
+    ManagerView managerView=new ManagerView();
     // End of variables declaration//GEN-END:variables
 }

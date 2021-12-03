@@ -30,7 +30,7 @@ public class EmployeeWorklogView {
         PreparedStatement readStatement;
         try {
             readStatement = connection.prepareStatement(
-                    "SELECT time,work_done,t_name,p_name FROM " + viewName + " WHERE employee_id = ? ORDER BY time",
+                    "SELECT id,time,work_done,task_id,t_name,p_name FROM " + viewName + " WHERE employee_id = ? ORDER BY time",
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             readStatement.setInt(1, employee_id);
             ResultSet resultSet = readStatement.executeQuery();// execute the select query

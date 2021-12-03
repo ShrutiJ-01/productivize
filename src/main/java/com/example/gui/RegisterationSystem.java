@@ -2,11 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package productivizepackage;
+package com.example.gui;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
+
+import com.example.entites.Employee;
+import com.example.entites.Manager;
+import com.example.tabledao.Authenticate;
 
 /**
  *
@@ -67,7 +72,7 @@ public class RegisterationSystem extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         LabelRegistrationSystem.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        LabelRegistrationSystem.setText("Login System");
+        LabelRegistrationSystem.setText("Create an account");
 
         LabelEmployee.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         LabelEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -98,11 +103,6 @@ public class RegisterationSystem extends javax.swing.JFrame {
                 TFEmployeeNameFocusLost(evt);
             }
         });
-        TFEmployeeName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFEmployeeNameActionPerformed(evt);
-            }
-        });
 
         PasswordFieldEmployee.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         PasswordFieldEmployee.setForeground(new java.awt.Color(153, 153, 153));
@@ -117,6 +117,12 @@ public class RegisterationSystem extends javax.swing.JFrame {
         });
 
         ButtonEmployeeRegistration.setText("Register");
+        ButtonEmployeeRegistration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonEmployeeRegistrationActionPerformed(evt,TFEmployeeName.getText(),String.valueOf(PasswordFieldEmployee.getPassword()));
+            }
+        });
+
 
         javax.swing.GroupLayout PanelEmployeeLayout = new javax.swing.GroupLayout(PanelEmployee);
         PanelEmployee.setLayout(PanelEmployeeLayout);
@@ -155,11 +161,6 @@ public class RegisterationSystem extends javax.swing.JFrame {
                 TFManagerNameFocusLost(evt);
             }
         });
-        TFManagerName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFManagerNameActionPerformed(evt);
-            }
-        });
 
         PasswordFieldManager.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         PasswordFieldManager.setForeground(new java.awt.Color(153, 153, 153));
@@ -172,16 +173,11 @@ public class RegisterationSystem extends javax.swing.JFrame {
                 PasswordFieldManagerFocusLost(evt);
             }
         });
-        PasswordFieldManager.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PasswordFieldManagerActionPerformed(evt);
-            }
-        });
 
         ButtonManagerRegistration.setText("Register");
         ButtonManagerRegistration.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonManagerRegistrationActionPerformed(evt);
+                ButtonManagerRegistrationActionPerformed(evt,TFManagerName.getText(),String.valueOf(PasswordFieldManager.getPassword()));
             }
         });
 
@@ -393,20 +389,29 @@ public class RegisterationSystem extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PasswordFieldManagerFocusLost
 
-    private void PasswordFieldManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldManagerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PasswordFieldManagerActionPerformed
+    private void ButtonManagerRegistrationActionPerformed(java.awt.event.ActionEvent evt,String name,String password) {//GEN-FIRST:event_ButtonManagerRegistrationActionPerformed
+       try {
+        Manager registeredManager=authentication.registerManager(name,"", password);
+        System.out.println(" registered Id is : "+registeredManager.id);
+        JOptionPane.showMessageDialog(null, "your manager Id is : "+registeredManager.id+" \n Please login with this Manager Id and password again");
+        dispose();//dispose pf registration window
+        LoginSystem.build();//build the login UI
+    } catch (Exception e) {
+     JOptionPane.showMessageDialog(null,e.getMessage());
+    }
 
-    private void TFEmployeeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFEmployeeNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFEmployeeNameActionPerformed
 
-    private void TFManagerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFManagerNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFManagerNameActionPerformed
-
-    private void ButtonManagerRegistrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonManagerRegistrationActionPerformed
-        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonManagerRegistrationActionPerformed
+    private void ButtonEmployeeRegistrationActionPerformed(java.awt.event.ActionEvent evt,String name,String password) {//GEN-FIRST:event_ButtonManagerRegistrationActionPerformed
+        try {
+            Employee registeredEmployee=authentication.registerEmployee(name,"", password);
+            System.out.println(" registered Id is : "+registeredEmployee.id);
+            JOptionPane.showMessageDialog(null, "your employee Id is : "+registeredEmployee.id+" \n Please login with this Employee Id and password again");
+            dispose();//dispose pf registration window
+            LoginSystem.build();//build the login UI
+        } catch (Exception e) {
+         JOptionPane.showMessageDialog(null,e.getMessage());
+        }
     }//GEN-LAST:event_ButtonManagerRegistrationActionPerformed
 
     /**
@@ -459,5 +464,6 @@ public class RegisterationSystem extends javax.swing.JFrame {
     private javax.swing.JTextField TFEmployeeName;
     private javax.swing.JTextField TFManagerName;
     private javax.swing.JLabel jLabel2;
+    private Authenticate authentication=new Authenticate();
     // End of variables declaration//GEN-END:variables
 }
