@@ -395,7 +395,7 @@ public class RegisterationSystem extends javax.swing.JFrame {
         System.out.println(" registered Id is : "+registeredManager.id);
         JOptionPane.showMessageDialog(null, "your manager Id is : "+registeredManager.id+" \n Please login with this Manager Id and password again");
         dispose();//dispose pf registration window
-        LoginSystem.build();//build the login UI
+        //LoginSystem.build();//build the login UI
     } catch (Exception e) {
      JOptionPane.showMessageDialog(null,e.getMessage());
     }
@@ -408,7 +408,7 @@ public class RegisterationSystem extends javax.swing.JFrame {
             System.out.println(" registered Id is : "+registeredEmployee.id);
             JOptionPane.showMessageDialog(null, "your employee Id is : "+registeredEmployee.id+" \n Please login with this Employee Id and password again");
             dispose();//dispose pf registration window
-            LoginSystem.build();//build the login UI
+            //LoginSystem.build();//build the login UI
         } catch (Exception e) {
          JOptionPane.showMessageDialog(null,e.getMessage());
         }
