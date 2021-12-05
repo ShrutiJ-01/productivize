@@ -31,7 +31,7 @@ public class ManagerView {
         try {
             readStatement = connection
                     .prepareStatement(
-                            "SELECT employee_id,first_name,last_name,t_id,t_name,m_name  FROM " + viewName
+                            "SELECT employee_id,CONCAT(first_name,' ',last_name),t_id,t_name,m_name  FROM " + viewName
                                     + " WHERE project_id = ?;",
                             ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             readStatement.setInt(1, project_id);

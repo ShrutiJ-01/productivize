@@ -40,6 +40,34 @@ public class EmployeeWorklogView {
                 return null;
             } else { // return resultSet containing data
                 log.info("WorklogViewDao : Data found in View");
+                log.info("found worklog : "+resultSet.getInt("id"));
+                return resultSet;
+            }
+
+        } catch (SQLException e) {// throw exception when database error occurs
+            log.info("WorklogViewDao : Could not read from worklog_view");
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    public ResultSet getWorklogsOfEmployeeForTask(int employee_id,int task_id) {
+        log.info("WorklogViewDao : Querying tasks for project Id : " + employee_id +" task id : "+task_id);
+        PreparedStatement readStatement;
+        try {
+            readStatement = connection.prepareStatement(
+                    "SELECT id,time,work_done,task_id,t_name,p_name FROM " + viewName + " WHERE employee_id = ? AND task_id = ? ORDER BY time",
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            readStatement.setInt(1, employee_id);
+            readStatement.setInt(2,task_id);
+            ResultSet resultSet = readStatement.executeQuery();// execute the select query
+
+            if (!resultSet.next()) {// if the resultSet is empty return null
+                log.info("WorklogViewDao : No Matching Data found in View");
+                return null;
+            } else { // return resultSet containing data
+                log.info("WorklogViewDao : Data found in View");
+                log.info("found worklog : "+resultSet.getInt("id"));
                 return resultSet;
             }
 

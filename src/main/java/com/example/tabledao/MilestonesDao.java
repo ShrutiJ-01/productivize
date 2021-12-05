@@ -99,7 +99,7 @@ public class MilestonesDao {
 		PreparedStatement readStatement;
 		try {
 			readStatement = connection.prepareStatement(
-					"SELECT milestones.m_name,milestones.id,milestones.due_date,milestones.deliverables,ms_status.status FROM milestones,ms_status WHERE milestones.project_id = ? AND milestones.status_id=ms_status.id;",
+					"SELECT milestones.id,milestones.m_name,milestones.due_date,milestones.deliverables,ms_status.status FROM milestones,ms_status WHERE milestones.project_id = ? AND milestones.status_id=ms_status.id;",
 					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			readStatement.setInt(1, project_id);
 			ResultSet resultSet = readStatement.executeQuery();// execute the select query

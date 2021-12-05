@@ -9,7 +9,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class Utilities {
 
-    //HashSet that stpres picked Random Numbers
+    //HashSet that stores picked Random Numbers
     private HashSet<Integer> pickedNumbers = new HashSet<>();
 
     //return a unique random number in the range 0 to the 
@@ -81,7 +81,6 @@ public class Utilities {
         }
         catch(NullPointerException e){
             System.out.println("parse to object array : Null was resuturned as Result Set");
-            e.printStackTrace();
             return new Object[0][0];
         }
         catch(Exception e){
