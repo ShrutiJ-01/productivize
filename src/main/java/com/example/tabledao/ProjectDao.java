@@ -102,7 +102,7 @@ public class ProjectDao {
 		PreparedStatement readStatement;
 		try {
 			readStatement = connection.prepareStatement(
-					"SELECT p_name,id,start,end FROM " + tableName
+					"SELECT id,p_name,start,end FROM " + tableName
 							+ " WHERE manager_id = ? AND status_id = 1 ORDER BY p_name",
 					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			readStatement.setInt(1, manager_id);
@@ -129,7 +129,7 @@ public class ProjectDao {
 		PreparedStatement readStatement;
 		try {
 			readStatement = connection.prepareStatement(
-					"SELECT p_name,id,start,end FROM " + tableName
+					"SELECT id,p_name,start,end FROM " + tableName
 							+ " WHERE manager_id = ? AND status_id = 2 ORDER BY p_name",
 					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			readStatement.setInt(1, manager_id);
@@ -156,7 +156,7 @@ public class ProjectDao {
 		PreparedStatement readStatement;
 		try {
 			readStatement = connection.prepareStatement(
-					"SELECT p_name,id,start,end FROM " + tableName
+					"SELECT id,p_name,start,end FROM " + tableName
 							+ " WHERE manager_id = ? AND status_id = 3 ORDER BY p_name",
 					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			readStatement.setInt(1, manager_id);

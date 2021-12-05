@@ -20,5 +20,15 @@ public class Task
     	this.ms_id = ms_id;
     	this.project_id = project_id;
     }
+	public Task(int id,String name, int employee_id, int status_id, int ms_id, int project_id)
+
+    {
+    	this.id=id;
+		this.name = name;
+    	this.employee_id = employee_id;
+    	this.status_id = status_id;
+    	this.ms_id = ms_id;
+    	this.project_id = project_id;
+    }
 
 }

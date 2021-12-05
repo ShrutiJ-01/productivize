@@ -1,6 +1,6 @@
 package com.example.productivize;
-import com.example.entites.Employee;
-import com.example.tabledao.Authenticate;
+import com.example.gui.LoginSystem;
+import com.example.gui.RegisterationSystem;
 import java.util.logging.Logger;
 
 //Starting point of our application
@@ -15,13 +15,8 @@ public final class App {
     }
 
     public static void main(String[] args) throws Exception {
-        
-        Authenticate authenticate=new Authenticate();
-        Employee emp=authenticate.registerEmployee("singleton", "pattern", "new");
-        log.info("Id of the registration sucessful? " + emp.id);
-        log.info("check login for emplyee");
-        Employee emp2=authenticate.loginEmployee(emp.id, "new");
-        log.info("employee logged in is : "+emp2.first_name+" "+emp2.last_name);
+        log.info("---STARTING APPLICATION PRODUCTIVIZE---");
+        LoginSystem.build();
     }
 
 }

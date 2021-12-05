@@ -10,6 +10,9 @@ import com.example.entites.Employee;
 import com.example.entites.Manager;
 import com.example.tabledao.Authenticate;
 
+//first and last name conjugatd in tasks tabel
+//autofill textfield values for edit and add based on row selection
+//add alerts for milestones/taks ids not found
 
 public class LoginSystem extends javax.swing.JFrame {
 
@@ -404,6 +407,9 @@ public class LoginSystem extends javax.swing.JFrame {
             Manager loggedInManager=authentication.loginManager(Integer.parseInt(uid), password);
             System.out.println(" name is : "+loggedInManager.first_name);
             JOptionPane.showMessageDialog(null, "You have succesfully logged in!");
+
+            dispose();//close the login window
+            ManagerDashboard.build(loggedInManager);//build the manager dashboard
         } catch (Exception e) {
          JOptionPane.showMessageDialog(null,e.getMessage());
         }
@@ -412,7 +418,7 @@ public class LoginSystem extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void build() {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
