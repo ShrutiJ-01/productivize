@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 public class ManagerView {
 
     private String viewName;
+    private String tableName;
     private Connection connection = DatabaseConnector.getConnection();
     private static final Logger log;
 
@@ -23,6 +24,7 @@ public class ManagerView {
     public ManagerView() {
         super();
         this.viewName = "manager_view";
+        this.tableName = "task_status";
     }
 
     public ResultSet getTasksofProject(int project_id) {
@@ -31,8 +33,8 @@ public class ManagerView {
         try {
             readStatement = connection
                     .prepareStatement(
-                            "SELECT employee_id,CONCAT(first_name,' ',last_name),t_id,t_name,m_name  FROM " + viewName
-                                    + " WHERE project_id = ?;",
+                            "SELECT employee_id,CONCAT(first_name,' ',last_name),t_id,t_name,m_name,task_status.status  FROM " + viewName
+                                    + ", " + tableName +" WHERE project_id = ? AND task_status.id = status_id;",
                             ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             readStatement.setInt(1, project_id);
             ResultSet resultSet = readStatement.executeQuery();// execute the select query

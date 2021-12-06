@@ -1,6 +1,6 @@
 package com.example.productivize;
 import com.example.gui.LoginSystem;
-import com.example.gui.RegisterationSystem;
+//import com.example.gui.RegisterationSystem;
 import java.util.logging.Logger;
 
 //Starting point of our application
