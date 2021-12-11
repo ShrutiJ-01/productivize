@@ -93,29 +93,29 @@ public class commandLineInterface {
         // log.info("Entries found :  "+queryResultSet.getRow());
 
 
-        log.info("---------------------------------------------------------");
-        log.info("TASKSDAO.JAVA ");   
-        Task task=new Task("check employee dao", 180, 2, 301);
-        TaskDao taskDao=new TaskDao();
-        result=taskDao.insert(task);
-        log.info("Insert succesful ? : "+result); 
-        task.name="updated task name";
-        result=taskDao.update(task);  
-        log.info("Update succesful ? : "+result); 
-        result=taskDao.delete(task.id);
-        log.info("Delete succesful ? : "+result);
-
         // log.info("---------------------------------------------------------");
-        // log.info("WORKLOGDAO.JAVA ");   
-        // Worklog worklog=new Worklog(71, 11, "new worklog created", 108);
-        // WorklogDao worklogDao=new WorklogDao();
-        // result= worklogDao.insert(worklog);
-        // log.info("Insert succesful ? : "+result);
-        // worklog.work_done="updated worklog";
-        // result=worklogDao.update(worklog);
+        // log.info("TASKSDAO.JAVA ");   
+        // Task task=new Task("check employee dao", 180, 2, 301);
+        // TaskDao taskDao=new TaskDao();
+        // result=taskDao.insert(task);
+        // log.info("Insert succesful ? : "+result); 
+        // task.name="updated task name";
+        // result=taskDao.update(task);  
         // log.info("Update succesful ? : "+result); 
-        // result=worklogDao.delete(worklog.id);
+        // result=taskDao.delete(task.id);
         // log.info("Delete succesful ? : "+result);
+
+        log.info("---------------------------------------------------------");
+        log.info("WORKLOGDAO.JAVA ");   
+        Worklog worklog=new Worklog(71,"new worklog created");
+        WorklogDao worklogDao=new WorklogDao();
+        result= worklogDao.insert(worklog);
+        log.info("Insert succesful ? : "+result);
+        worklog.work_done="updated worklog";
+        result=worklogDao.update(worklog);
+        log.info("Update succesful ? : "+result); 
+        result=worklogDao.delete(worklog.id);
+        log.info("Delete succesful ? : "+result);
 
         // log.info("---------------------------------------------------------");
         // log.info("MANAGER_VIEW.JAVA ");   

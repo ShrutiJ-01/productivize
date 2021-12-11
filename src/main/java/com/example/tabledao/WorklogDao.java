@@ -44,12 +44,10 @@ public class WorklogDao{
             log.info("Insert worklog");
             try {
                 PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO " + tableName
-                        + " (id, work_done, task_id, employee_id, project_id) VALUES (?, ?, ?, ?, ?);");
+                        + " (id, work_done, task_id) VALUES (?, ?, ?);");
                 insertStatement.setInt(1, worklog.id);
                 insertStatement.setString(2, worklog.work_done);
                 insertStatement.setInt(3, worklog.task_id);
-                insertStatement.setInt(4, worklog.employee_id);
-                insertStatement.setInt(5, worklog.project_id);
                 insertStatement.executeUpdate();
                 return true;
     
@@ -85,12 +83,10 @@ public class WorklogDao{
         log.info("Update data");
         try {
             PreparedStatement updateStatement = connection.prepareStatement("UPDATE " + tableName
-                    + " SET work_done = ?, task_id = ?, employee_id = ?, project_id= ? WHERE id = ?;");
+                    + " SET work_done = ?, task_id = ? WHERE id = ?;");
             updateStatement.setString(1, worklog.work_done);
             updateStatement.setInt(2, worklog.task_id);
-            updateStatement.setInt(3, worklog.employee_id);
-            updateStatement.setInt(4, worklog.project_id);
-            updateStatement.setInt(5, worklog.id);
+            updateStatement.setInt(3, worklog.id);
             updateStatement.executeUpdate();
             return true;
         } catch (SQLException e) {

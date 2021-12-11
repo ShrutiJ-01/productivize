@@ -259,28 +259,23 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private void ButtonAddLogActionPerformed(java.awt.event.ActionEvent evt) {
         JTextField workdone = new JTextField();
         JTextField taskid = new JTextField(selectedTaskId);
-        JTextField projectId = new JTextField(selectedProjectid);
         final JComponent[] inputs = new JComponent[] {
                 new JLabel("Work done"),
                 workdone,
                 new JLabel("Task ID"),
-                taskid,
-                new JLabel("Project ID"),
-                projectId,
+                taskid
         };
         int response = JOptionPane.showConfirmDialog(null, inputs, "Add a log", JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE);
         // 0=ok, 2=cancel
         if (response == 0) {
 
-            if (workdone.getText().isEmpty() || taskid.getText().isEmpty() || projectId.getText().isEmpty()) {// check
-                                                                                                              // validatoins
+            if (workdone.getText().isEmpty() || taskid.getText().isEmpty()) {// check validatoins
                 JOptionPane.showMessageDialog(null, "Please Enter all feilds !");
 
             } else {// if no feilds are empty
                 try {
-                    boolean isInserted = worklogDao.insert(new Worklog(Integer.valueOf(taskid.getText()),
-                            Integer.valueOf(projectId.getText()), workdone.getText(), employee.id));
+                    boolean isInserted = worklogDao.insert(new Worklog(Integer.valueOf(taskid.getText()), workdone.getText()));
                     if (isInserted) {
                         JOptionPane.showMessageDialog(null, "Added log!");
 
@@ -302,30 +297,24 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         JTextField id = new JTextField(selectedWorklogId);
         JTextField workdone = new JTextField();
         JTextField taskid = new JTextField(selectedTaskId);
-        JTextField projectid = new JTextField(selectedProjectid);
         final JComponent[] inputs = new JComponent[] {
                 new JLabel("Worklog ID"),
                 id,
                 new JLabel("Work done"),
                 workdone,
                 new JLabel("Task ID"),
-                taskid,
-                new JLabel("Project ID"),
-                projectid,
+                taskid
         };
         // response is 0 if OK is clicked, 2 if CANCEL is clicked
         int response = JOptionPane.showConfirmDialog(null, inputs, "Edit a log", JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE);
         if (response == 0) {
-            if (workdone.getText().isEmpty() || taskid.getText().isEmpty() || projectid.getText().isEmpty()
-                    || id.getText().isEmpty()) {// validation of feilds
+            if (workdone.getText().isEmpty() || taskid.getText().isEmpty() || id.getText().isEmpty()) {// validation of feilds
                 JOptionPane.showMessageDialog(null, "Please Enter all feilds !");
 
             } else {// if all feilds are valid
 
-                boolean isUpdated = worklogDao
-                        .update(new Worklog(Integer.valueOf(id.getText()), Integer.valueOf(taskid.getText()),
-                                Integer.valueOf(projectid.getText()), workdone.getText(), employee.id));
+                boolean isUpdated = worklogDao.update(new Worklog(Integer.valueOf(id.getText()), Integer.valueOf(taskid.getText()), workdone.getText()));
                 if (isUpdated) {
                     JOptionPane.showMessageDialog(null, "Edited Worklog!");
                     // rebuild table
