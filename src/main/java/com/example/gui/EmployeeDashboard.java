@@ -397,7 +397,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 jTable1.setModel(new javax.swing.table.DefaultTableModel(
                         Utilities.parseToObjectArray(employeeTaskView.getTodoTasks(employee.id)),
                         new String[] {
-                                "Task ID", "Task name", "Project ID", "Project name", "Milestones"
+                                "Task ID", "Task name", "Milestone ID", "Milestone Name", "Project Name"
                         }) {
                     boolean[] canEdit = new boolean[] {
                             false, false, false, false, false
@@ -413,7 +413,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 jTable1.setModel(new javax.swing.table.DefaultTableModel(
                         Utilities.parseToObjectArray(employeeTaskView.getDoingTasks(employee.id)),
                         new String[] {
-                                "Task ID", "Task name", "Project ID", "Project name", "Milestones"
+                                "Task ID", "Task name", "Milestone ID", "Milestone Name", "Project Name"
                         }) {
                     boolean[] canEdit = new boolean[] {
                             false, false, false, false, false
@@ -428,7 +428,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 jTable1.setModel(new javax.swing.table.DefaultTableModel(
                         Utilities.parseToObjectArray(employeeTaskView.getCompletedTasks(employee.id)),
                         new String[] {
-                                "Task ID", "Task name", "Project ID", "Project name", "Milestones"
+                                "Task ID", "Task name", "Milestone ID", "Milestone Name", "Project Name"
                         }) {
                     boolean[] canEdit = new boolean[] {
                             false, false, false, false, false
