@@ -9,10 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
-public class ManagerView {
+public class ManagerTaskView {
 
     private String viewName;
-    private String tableName;
     private Connection connection = DatabaseConnector.getConnection();
     private static final Logger log;
 
@@ -21,22 +20,21 @@ public class ManagerView {
         log = Logger.getLogger(App.class.getName());
     }
 
-    public ManagerView() {
+    public ManagerTaskView() {
         super();
-        this.viewName = "manager_view";
-        this.tableName = "task_status";
+        this.viewName = "manager_task_view";
     }
 
-    public ResultSet getTasksofProject(int project_id) {
-        log.info("ManagerViewDao : Querying tasks for project Id : " + project_id);
+    public ResultSet getTasksforMilestone(int milestone_id) {
+        log.info("ManagerViewDao : Querying tasks for milestone Id : " + milestone_id);
         PreparedStatement readStatement;
         try {
             readStatement = connection
                     .prepareStatement(
-                            "SELECT employee_id,CONCAT(first_name,' ',last_name),t_id,t_name,m_name,task_status.status  FROM " + viewName
-                                    + ", " + tableName +" WHERE project_id = ? AND task_status.id = status_id;",
+                            "SELECT employee_id,CONCAT(first_name,' ',last_name),task_id,task_name,status_id  FROM " + viewName
+                                    + " WHERE ms_id = ?;",
                             ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            readStatement.setInt(1, project_id);
+            readStatement.setInt(1, milestone_id);
             ResultSet resultSet = readStatement.executeQuery();// execute the select query
 
             if (!resultSet.next()) {// if the resultSet is empty return null

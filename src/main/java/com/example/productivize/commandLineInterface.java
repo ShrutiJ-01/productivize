@@ -16,7 +16,7 @@ import com.example.tabledao.ProjectDao;
 import com.example.tabledao.TaskDao;
 import com.example.tabledao.WorklogDao;
 import com.example.viewsdao.EmployeeTaskView;
-import com.example.viewsdao.ManagerView;
+import com.example.viewsdao.ManagerTaskView;
 import com.example.viewsdao.EmployeeWorklogView;
 
 public class commandLineInterface {
@@ -118,15 +118,15 @@ public class commandLineInterface {
         // result=worklogDao.delete(worklog.id);
         // log.info("Delete succesful ? : "+result);
 
-        // log.info("---------------------------------------------------------");
-        // log.info("MANAGER_VIEW.JAVA ");   
-        // ManagerView manager_view= new ManagerView();
-        // ResultSet resultSet=manager_view.getTasksofProject(11);
-        // log.info(resultSet.getString("first_name"));
-        // while (resultSet.next()) {
-        //     log.info(resultSet.getString("first_name"));
-        // }
-        // log.info("---------------------------------------------------------");
+        log.info("---------------------------------------------------------");
+        log.info("MANAGER_VIEW.JAVA ");   
+        ManagerTaskView manager_view= new ManagerTaskView();
+        ResultSet resultSet=manager_view.getTasksforMilestone(301);
+        log.info(resultSet.getString("task_name"));
+        while (resultSet.next()) {
+            log.info(resultSet.getString("task_name"));
+        }
+        log.info("---------------------------------------------------------");
 
         // log.info("---------------------------------------------------------");
         // log.info("EMPLOYEE_TASKS_VIEW.JAVA ");   
@@ -139,16 +139,16 @@ public class commandLineInterface {
         // }
         // log.info("---------------------------------------------------------");
  
-        log.info("---------------------------------------------------------");
-        log.info("WORKLOG_VIEW.JAVA ");   
-        EmployeeWorklogView worklog_view= new EmployeeWorklogView();
-        ResultSet worklogResult=worklog_view.getWorklogsForTask(72);
+        // log.info("---------------------------------------------------------");
+        // log.info("WORKLOG_VIEW.JAVA ");   
+        // EmployeeWorklogView worklog_view= new EmployeeWorklogView();
+        // ResultSet worklogResult=worklog_view.getWorklogsForTask(72);
         
-        log.info(worklogResult.getString("project_name"));
-        while (worklogResult.next()) {
-            log.info(worklogResult.getString("project_name"));
-        }
-        log.info("---------------------------------------------------------");
+        // log.info(worklogResult.getString("project_name"));
+        // while (worklogResult.next()) {
+        //     log.info(worklogResult.getString("project_name"));
+        // }
+        // log.info("---------------------------------------------------------");
 
 
 

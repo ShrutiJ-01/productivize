@@ -18,7 +18,7 @@ import com.example.services.Utilities;
 import com.example.tabledao.MilestonesDao;
 import com.example.tabledao.ProjectDao;
 import com.example.tabledao.TaskDao;
-import com.example.viewsdao.ManagerView;
+import com.example.viewsdao.ManagerTaskView;
 
 /**
  *
@@ -445,11 +445,11 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
     private void buildTasksTableForProject() {
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
-                selectedProjectId == null ? new Object[0][0]
+                selectedMilestoneId == null ? new Object[0][0]
                         : Utilities
-                                .parseToObjectArray(managerView.getTasksofProject(Integer.valueOf(selectedProjectId))),
+                                .parseToObjectArray(managerView.getTasksforMilestone(Integer.valueOf(selectedMilestoneId))),
                 new String[] {
-                        "Employee ID", "Employee name", "Task ID", "Task name", "Milestone name", "Task Status"
+                        "Employee ID", "Employee name", "Task ID", "Task name", "Task Status"
                 }) {
             boolean[] canEdit = new boolean[] {
                     false, false, false, false, false, false
@@ -836,7 +836,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
     private String selectedMilestoneId;
     private String selectedTaskId;
     private Manager manager;
-    private ManagerView managerView = new ManagerView();
+    private ManagerTaskView managerView = new ManagerTaskView();
     private ProjectDao projectDao = new ProjectDao();
     private MilestonesDao milestonesDao = new MilestonesDao();
     private TaskDao taskDao = new TaskDao();
