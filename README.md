@@ -4,9 +4,8 @@ Project Management Application in Java made using Swing and MySQL.
 
 ## Description
 
-To increase the efficiency and organize development, nowadays project management systems are popular. We might be building a number of projects at a time, and require input from a number of individuals, or teams whereby a good project management system is needed. 
-
-That is where productivize comes into picture. Employees and managers can organize and track the progress of their work by using a application that allows them to divide their projects into smaller units and set deadlines to accomplish them. The following functionalities are availabel to employees and managers in productivize:
+To increase the efficiency and organize development, nowadays project management systems are popular.That is where productivize comes into picture. 
+Employees and managers can organize and track the progress of their work by using a application that allows them to divide their projects into smaller units and set deadlines to accomplish them. The following functionalities are availabel to employees and managers in productivize:
 
 Employee
 Can update task status to doing, to do and completed.
@@ -17,14 +16,10 @@ Can create and assign tasks. Along with the ability to delete and update them.
 Can create, update and delete milestones for a project.
 These are the ways in which a user can query the database through the GUI :
 1) For an employee that has logged in ,
-- Fetch all tasks with status  “to do”.
-- Fetch all tasks with status “doing”.
-- Fetch all tasks with status “completed”.
+- Fetch all tasks with status  “to do”, “doing”, “completed”.
 - Fetch all the worklogs for entered task id.
 2) For an manager that has logged in ,
-- Fetch all projects  with status  “to do”.
-- Fetch all projects with status “doing”.
-- Fetch all projects with status “completed”.
+- Fetch all projects  with status  “to do”, “doing”, “blocked”.
 - Fetch all the milestones for requested project id.
 - Fetch all tasks for requested project id.
 - Fetch al the employees that work for him.
