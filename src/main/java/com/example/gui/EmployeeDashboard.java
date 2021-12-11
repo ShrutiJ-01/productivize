@@ -115,7 +115,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 if (jTable1.getSelectedRow() > -1) {
                     // store taskid of selected row
                     selectedTaskId = jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
-                    selectedProjectid =jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString();
+                    selectedProjectid = jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString();
                     // build worklogs
                     buildWorklogTable();
                 }
@@ -133,18 +133,18 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         buildWorklogTable();
         jScrollPane3.setViewportView(jTable3);
-         // setup selection model for worklog table
-         ListSelectionModel worklogSelectionModel = jTable3.getSelectionModel();
-         worklogSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
- 
-         worklogSelectionModel.addListSelectionListener(new ListSelectionListener() {
-             public void valueChanged(ListSelectionEvent e) {
-                 if (jTable3.getSelectedRow() > -1) {
-                     // store taskid of selected row
-                     selectedWorklogId = jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString();
-                 }
-             }
-         });
+        // setup selection model for worklog table
+        ListSelectionModel worklogSelectionModel = jTable3.getSelectionModel();
+        worklogSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+        worklogSelectionModel.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (jTable3.getSelectedRow() > -1) {
+                    // store taskid of selected row
+                    selectedWorklogId = jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString();
+                }
+            }
+        });
 
         ButtonAddLog.setText("Add a log");
         ButtonAddLog.addActionListener(new java.awt.event.ActionListener() {
@@ -170,7 +170,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         });
 
         ComboBoxTaskStatus
-                .setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "On-going", "To do", "Completed" }));
+                .setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "To do", "Doing", "Completed" }));
         ComboBoxTaskStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buildTaskTableForPickedFilter();
@@ -256,7 +256,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         pack();
     }
 
-
     private void ButtonAddLogActionPerformed(java.awt.event.ActionEvent evt) {
         JTextField workdone = new JTextField();
         JTextField taskid = new JTextField(selectedTaskId);
@@ -273,19 +272,27 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 JOptionPane.PLAIN_MESSAGE);
         // 0=ok, 2=cancel
         if (response == 0) {
-            try {
-                boolean isInserted = worklogDao.insert(new Worklog(Integer.valueOf(taskid.getText()),
-                        Integer.valueOf(projectId.getText()), workdone.getText(), employee.id));
-                if (isInserted) {
-                    JOptionPane.showMessageDialog(null, "Added log!");
 
-                    // rebuild table
-                    buildWorklogTable();
-                } else {
-                    JOptionPane.showMessageDialog(null, " Could not Insert Worklog !");
+            if (workdone.getText().isEmpty() || taskid.getText().isEmpty() || projectId.getText().isEmpty()) {// check
+                                                                                                              // validatoins
+                JOptionPane.showMessageDialog(null, "Please Enter all feilds !");
+
+            } else {// if no feilds are empty
+                try {
+                    boolean isInserted = worklogDao.insert(new Worklog(Integer.valueOf(taskid.getText()),
+                            Integer.valueOf(projectId.getText()), workdone.getText(), employee.id));
+                    if (isInserted) {
+                        JOptionPane.showMessageDialog(null, "Added log!");
+
+                        // rebuild table
+                        buildWorklogTable();
+                    } else {
+                        JOptionPane.showMessageDialog(null, " Could not Insert Worklog !");
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+
             }
 
         }
@@ -310,15 +317,22 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         int response = JOptionPane.showConfirmDialog(null, inputs, "Edit a log", JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE);
         if (response == 0) {
-            boolean isUpdated = worklogDao
-                    .update(new Worklog(Integer.valueOf(id.getText()), Integer.valueOf(taskid.getText()),
-                            Integer.valueOf(projectid.getText()), workdone.getText(), employee.id));
-            if (isUpdated) {
-                JOptionPane.showMessageDialog(null, "Edited Worklog!");
-                // rebuild table
-                buildWorklogTable();
-            } else {
-                JOptionPane.showMessageDialog(null, "Could not edit Worklog");
+            if (workdone.getText().isEmpty() || taskid.getText().isEmpty() || projectid.getText().isEmpty()
+                    || id.getText().isEmpty()) {// validation of feilds
+                JOptionPane.showMessageDialog(null, "Please Enter all feilds !");
+
+            } else {// if all feilds are valid
+
+                boolean isUpdated = worklogDao
+                        .update(new Worklog(Integer.valueOf(id.getText()), Integer.valueOf(taskid.getText()),
+                                Integer.valueOf(projectid.getText()), workdone.getText(), employee.id));
+                if (isUpdated) {
+                    JOptionPane.showMessageDialog(null, "Edited Worklog!");
+                    // rebuild table
+                    buildWorklogTable();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Could not edit Worklog");
+                }
             }
 
         }
@@ -336,13 +350,19 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         int response = JOptionPane.showConfirmDialog(null, inputs, "Delete a log", JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE);
         if (response == 0) {
-            boolean isDeleted = worklogDao.delete(Integer.valueOf(id.getText()));
-            if (isDeleted) {
-                JOptionPane.showMessageDialog(null, "Deleted Worklog!");
-                // rebuild table
-                buildWorklogTable();
+
+            if (id.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please Enter all feilds !");
             } else {
-                JOptionPane.showMessageDialog(null, "Could not delete Worklog");
+
+                boolean isDeleted = worklogDao.delete(Integer.valueOf(id.getText()));
+                if (isDeleted) {
+                    JOptionPane.showMessageDialog(null, "Deleted Worklog!");
+                    // rebuild table
+                    buildWorklogTable();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Could not delete Worklog");
+                }
             }
 
         }
@@ -361,15 +381,23 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         int response = JOptionPane.showConfirmDialog(null, inputs, "Update task Status", JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE);
         if (response == 0) {
-            boolean isUpdated = taskDao.update(Integer.valueOf(taskid.getText()),
-                    Integer.valueOf(taskStatus.getText()));
-            if (isUpdated) {
-                JOptionPane.showMessageDialog(null, "Updated task Status!");
-                // rebuild table
-                buildTaskTableForPickedFilter();
-            } else {
-                JOptionPane.showMessageDialog(null, "Could'nt update task status!");
+
+            if (taskStatus.getText().isEmpty() || taskid.getText().isEmpty()) {// validation of feilds
+                JOptionPane.showMessageDialog(null, "Please Enter all feilds !");
+
+            } else {// if feilds are validated
+                boolean isUpdated = taskDao.update(Integer.valueOf(taskid.getText()),
+                        Integer.valueOf(taskStatus.getText()));
+                if (isUpdated) {
+                    JOptionPane.showMessageDialog(null, "Updated task Status!");
+                    // rebuild table
+                    buildTaskTableForPickedFilter();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Could'nt update task status!");
+                }
+
             }
+
         }
     }
 
@@ -431,10 +459,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private void buildWorklogTable() {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            selectedTaskId==null?
-                Utilities.parseToObjectArray(employeeWorklogView.getWorklogsOfEmployee(employee.id)):
-                Utilities.parseToObjectArray(employeeWorklogView.getWorklogsOfEmployeeForTask(employee.id, Integer.valueOf(selectedTaskId))),
-                new String[] {"ID", "Timestamp", "Work done", "Task ID", "Task name", "Project name"}) {
+                selectedTaskId == null
+                        ? Utilities.parseToObjectArray(employeeWorklogView.getWorklogsOfEmployee(employee.id))
+                        : Utilities.parseToObjectArray(employeeWorklogView.getWorklogsOfEmployeeForTask(employee.id,
+                                Integer.valueOf(selectedTaskId))),
+                new String[] { "ID", "Timestamp", "Work done", "Task ID", "Task name", "Project name" }) {
             boolean[] canEdit = new boolean[] {
                     false, false, false, false, false
             };
@@ -444,8 +473,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             }
         });
     }
-
-  
 
     /**
      * @param args the command line arguments

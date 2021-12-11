@@ -692,7 +692,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         if (response == 0) {
             try {
                 boolean isInserted = taskDao.insert(new Task(taskname.getText(), Integer.valueOf(employeeid.getText()),
-                        1, Integer.valueOf(milestoneid.getText()), Integer.valueOf(projectid.getText())));
+                        1, Integer.valueOf(milestoneid.getText())));
                 if (isInserted) {
                     JOptionPane.showMessageDialog(null, "Inserted Task!");
 
@@ -733,8 +733,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 JOptionPane.PLAIN_MESSAGE);
         if (response == 0) {
             boolean isInserted = taskDao.update(new Task(Integer.valueOf(taskid.getText()), taskname.getText(),
-                    Integer.valueOf(employeeid.getText()), 1, Integer.valueOf(milestoneid.getText()),
-                    Integer.valueOf(projectid.getText())));
+                    Integer.valueOf(employeeid.getText()), 1, Integer.valueOf(milestoneid.getText())));
             if (isInserted) {
                 JOptionPane.showMessageDialog(null, "Updated Task!");
 

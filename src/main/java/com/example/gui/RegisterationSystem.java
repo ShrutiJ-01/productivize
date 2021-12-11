@@ -93,7 +93,7 @@ public class RegisterationSystem extends javax.swing.JFrame {
 
         TFEmployeeName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TFEmployeeName.setForeground(new java.awt.Color(153, 153, 153));
-        TFEmployeeName.setText("First Name");
+        TFEmployeeName.setText("Enter Name");
         TFEmployeeName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 TFEmployeeNameFocusGained(evt);
@@ -157,7 +157,7 @@ public class RegisterationSystem extends javax.swing.JFrame {
 
         TFManagerName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TFManagerName.setForeground(new java.awt.Color(153, 153, 153));
-        TFManagerName.setText("First Name");
+        TFManagerName.setText("Enter Name");
         TFManagerName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 TFManagerNameFocusGained(evt);

@@ -41,21 +41,21 @@ public class commandLineInterface {
         Employee emp2=authenticate.loginEmployee(emp.id, "new");
         log.info("employee logged in is : "+emp2.first_name+" "+emp2.last_name);
 
-        Manager manager1=authenticate.registerManager("singleton", "pattern", "new");
-        log.info("Id of the registration " + manager1.id);
-        log.info("LOGIN FOR MANAGER");
-        Manager manager2=authenticate.loginManager(manager1.id, "new");
-        log.info("manager logged in is : "+manager2.first_name+" "+manager2.last_name);
+        // Manager manager1=authenticate.registerManager("singleton", "pattern", "new");
+        // log.info("Id of the registration " + manager1.id);
+        // log.info("LOGIN FOR MANAGER");
+        // Manager manager2=authenticate.loginManager(manager1.id, "new");
+        // log.info("manager logged in is : "+manager2.first_name+" "+manager2.last_name);
 
 
-        // log.info("---------------------------------------------------------");
-        // log.info("EMPLOYEEDAO.JAVA ");   
-        // Employee employee=new Employee(emp2.id,"update","successfull",true);
-        // EmployeeDao employeeDao=new EmployeeDao();
-        // result=employeeDao.update(employee);  
-        // log.info("Update succesful ? : "+result); 
-        // boolean res=employeeDao.delete(employee.id);
-        // log.info("Delete succesful ? : "+res);
+        log.info("---------------------------------------------------------");
+        log.info("EMPLOYEEDAO.JAVA ");   
+        Employee employee=new Employee(emp2.id,"update","successfull",true);
+        EmployeeDao employeeDao=new EmployeeDao();
+        result=employeeDao.update(employee);  
+        log.info("Update succesful ? : "+result); 
+        boolean res=employeeDao.delete(employee.id);
+        log.info("Delete succesful ? : "+res);
 
         // log.info("---------------------------------------------------------");
         // log.info("PROJECTSDAO.JAVA ");   
@@ -93,17 +93,17 @@ public class commandLineInterface {
         // log.info("Entries found :  "+queryResultSet.getRow());
 
 
-        // log.info("---------------------------------------------------------");
-        // log.info("TASKSDAO.JAVA ");   
-        // Task task=new Task("check employee dao", 108, 402, 301, 11);
-        // TaskDao taskDao=new TaskDao();
-        // result=taskDao.insert(task);
-        // log.info("Insert succesful ? : "+result); 
-        // task.name="updated task name";
-        // result=taskDao.update(task);  
-        // log.info("Update succesful ? : "+result); 
-        // result=taskDao.delete(task.id);
-        // log.info("Delete succesful ? : "+result);
+        log.info("---------------------------------------------------------");
+        log.info("TASKSDAO.JAVA ");   
+        Task task=new Task("check employee dao", 180, 2, 301);
+        TaskDao taskDao=new TaskDao();
+        result=taskDao.insert(task);
+        log.info("Insert succesful ? : "+result); 
+        task.name="updated task name";
+        result=taskDao.update(task);  
+        log.info("Update succesful ? : "+result); 
+        result=taskDao.delete(task.id);
+        log.info("Delete succesful ? : "+result);
 
         // log.info("---------------------------------------------------------");
         // log.info("WORKLOGDAO.JAVA ");   

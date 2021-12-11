@@ -42,13 +42,12 @@ public class TaskDao {
 			try 
 			{
 				PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO " + tableName
-						+ " (t_id, t_name, employee_id, status_id, ms_id, project_id) VALUES (?, ?, ?, ?, ?, ?);");
+						+ " (t_id, t_name, employee_id, status_id, ms_id) VALUES (?, ?, ?, ?, ?);");
 				insertStatement.setInt(1, task.id);
 				insertStatement.setString(2, task.name);
 				insertStatement.setInt(3, task.employee_id);
 				insertStatement.setInt(4, task.status_id);
 				insertStatement.setInt(5, task.ms_id);
-				insertStatement.setInt(6, task.project_id);
 				insertStatement.executeUpdate();
 				return true;
 			} 
@@ -90,13 +89,12 @@ public class TaskDao {
 	        try 
 	        {
 	            PreparedStatement updateStatement = connection.prepareStatement("UPDATE " + tableName
-	                    + " SET t_name = ?, employee_id = ?, status_id = ?, ms_id = ?, project_id = ?  WHERE t_id = ?;");
+	                    + " SET t_name = ?, employee_id = ?, status_id = ?, ms_id = ?  WHERE t_id = ?;");
 	            updateStatement.setString(1, task.name);
 	            updateStatement.setInt(2, task.employee_id);
 	            updateStatement.setInt(3, task.status_id);
 	            updateStatement.setInt(4, task.ms_id);
-	            updateStatement.setInt(5, task.project_id);
-				updateStatement.setInt(6, task.id);
+				updateStatement.setInt(5, task.id);
 	            updateStatement.executeUpdate();
 	            return true;
 
