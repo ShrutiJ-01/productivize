@@ -22,7 +22,7 @@ These are the ways in which a user can query the database through the GUI :
 - Fetch all projects  with status  “to do”, “doing”, “blocked”.
 - Fetch all the milestones for requested project id.
 - Fetch all tasks for requested project id.
-- Fetch al the employees that work for him.
+- Fetch all the employees that work for him.
 
 
 ### Executing program
