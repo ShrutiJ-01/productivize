@@ -128,27 +128,27 @@ public class commandLineInterface {
         // }
         // log.info("---------------------------------------------------------");
 
-        log.info("---------------------------------------------------------");
-        log.info("EMPLOYEE_TASKS_VIEW.JAVA ");   
-        EmployeeTaskView employee_task_view= new EmployeeTaskView();
-        queryResultSet=employee_task_view.getCompletedTasks(180);
-        
-        log.info(queryResultSet.getString("task_name"));
-        while (queryResultSet.next()) {
-            log.info(queryResultSet.getString("task_name"));
-        }
-        log.info("---------------------------------------------------------");
- 
         // log.info("---------------------------------------------------------");
-        // log.info("WORKLOG_VIEW.JAVA ");   
-        // EmployeeWorklogView worklog_view= new EmployeeWorklogView();
-        // ResultSet worklogResult=worklog_view.getWorklogsOfEmployee(102);
+        // log.info("EMPLOYEE_TASKS_VIEW.JAVA ");   
+        // EmployeeTaskView employee_task_view= new EmployeeTaskView();
+        // queryResultSet=employee_task_view.getCompletedTasks(180);
         
-        // log.info(worklogResult.getString("p_name"));
-        // while (worklogResult.next()) {
-        //     log.info(worklogResult.getString("p_name"));
+        // log.info(queryResultSet.getString("task_name"));
+        // while (queryResultSet.next()) {
+        //     log.info(queryResultSet.getString("task_name"));
         // }
         // log.info("---------------------------------------------------------");
+ 
+        log.info("---------------------------------------------------------");
+        log.info("WORKLOG_VIEW.JAVA ");   
+        EmployeeWorklogView worklog_view= new EmployeeWorklogView();
+        ResultSet worklogResult=worklog_view.getWorklogsForTask(72);
+        
+        log.info(worklogResult.getString("project_name"));
+        while (worklogResult.next()) {
+            log.info(worklogResult.getString("project_name"));
+        }
+        log.info("---------------------------------------------------------");
 
 
 

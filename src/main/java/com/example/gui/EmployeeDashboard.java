@@ -449,9 +449,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
                 selectedTaskId == null
-                        ? Utilities.parseToObjectArray(employeeWorklogView.getWorklogsOfEmployee(employee.id))
-                        : Utilities.parseToObjectArray(employeeWorklogView.getWorklogsOfEmployeeForTask(employee.id,
-                                Integer.valueOf(selectedTaskId))),
+                        ? new Object[0][0]
+                        : Utilities.parseToObjectArray(employeeWorklogView.getWorklogsForTask(Integer.valueOf(selectedTaskId))),
                 new String[] { "ID", "Timestamp", "Work done", "Task ID", "Task name", "Project name" }) {
             boolean[] canEdit = new boolean[] {
                     false, false, false, false, false
