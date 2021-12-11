@@ -1,4 +1,5 @@
 package com.example.productivize;
+import com.example.gui.LoginSystem;
 import com.example.gui.RegisterationSystem;
 
 import java.util.logging.Logger;
@@ -16,8 +17,8 @@ public final class App {
 
     public static void main(String[] args) throws Exception {
         log.info("---STARTING APPLICATION PRODUCTIVIZE---");
-        RegisterationSystem.main(args);
-        //LoginSystem.build();
+        //RegisterationSystem.main(args);
+        LoginSystem.build();
     }
 
 }

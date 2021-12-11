@@ -18,6 +18,7 @@ import com.example.services.Utilities;
 import com.example.tabledao.MilestonesDao;
 import com.example.tabledao.ProjectDao;
 import com.example.tabledao.TaskDao;
+import com.example.tabledao.WorksForDao;
 import com.example.viewsdao.ManagerTaskView;
 
 /**
@@ -26,13 +27,7 @@ import com.example.viewsdao.ManagerTaskView;
  */
 public class ManagerDashboard extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EmployeeDashboard
-     */
-
-    // to setup the table
     DefaultTableModel model;
-    private Object employee;
 
     public ManagerDashboard(Manager loggedInManager) {
         manager = loggedInManager;
@@ -45,6 +40,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -56,6 +52,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         TFManagerID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        LabelWorkingEmployees = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         ButtonAddMilestone = new javax.swing.JButton();
@@ -66,295 +63,272 @@ public class ManagerDashboard extends javax.swing.JFrame {
         ButtonMAddTask = new javax.swing.JButton();
         ButtonMEditTask = new javax.swing.JButton();
         ButtonMDeleteTask = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         ComboBoxProjectStatus = new javax.swing.JComboBox<>();
+        TableWorkingEmployees = new javax.swing.JTable();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-                        { null, null, null, null },
-                        { null, null, null, null },
-                        { null, null, null, null },
-                        { null, null, null, null }
-                },
-                new String[] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
-        jScrollPane2.setViewportView(jTable2);
+            new Object[][] {
+                    { null, null, null, null },
+                    { null, null, null, null },
+                    { null, null, null, null },
+                    { null, null, null, null }
+            },
+            new String[] {
+                    "Title 1", "Title 2", "Title 3", "Title 4"
+            }));
+    jScrollPane2.setViewportView(jTable2);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
-        jLabel1.setText("Hello " + manager.first_name + "!");
+    jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+    jLabel1.setText("Hello " + manager.first_name + "!");
 
-        jLabel2.setText("Manager ID:");
+    jLabel2.setText("Manager ID:");
 
-        ButtonAddProject.setText("Add a project");
-        ButtonAddProject.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonAddProjectActionPerformed(evt);
+    ButtonAddProject.setText("Add a project");
+    ButtonAddProject.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ButtonAddProjectActionPerformed(evt);
+        }
+    });
+
+    ButtonEditProject.setText("Edit a project");
+    ButtonEditProject.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ButtonEditProjectActionPerformed(evt);
+        }
+    });
+
+    ButtonDeleteProject.setText("Delete a project");
+    ButtonDeleteProject.setMaximumSize(new java.awt.Dimension(99, 23));
+    ButtonDeleteProject.setMinimumSize(new java.awt.Dimension(99, 23));
+    ButtonDeleteProject.setPreferredSize(new java.awt.Dimension(99, 23));
+    ButtonDeleteProject.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ButtonDeleteProjectActionPerformed(evt);
+        }
+    });
+
+    buildProjectsTableForFilter();
+    jScrollPane1.setViewportView(jTable1);
+    // setup selection model for projects table
+    ListSelectionModel projectSelectionModel = jTable1.getSelectionModel();
+    projectSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+    projectSelectionModel.addListSelectionListener(new ListSelectionListener() {
+        public void valueChanged(ListSelectionEvent e) {
+            if (jTable1.getSelectedRow() > -1) {
+                // store projectId of selected row
+                selectedProjectId = jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
+                // build ProjectId
+                buildMilestoneTableForProject();
+                buildTasksTableForProject();
             }
-        });
+        }
+    });
 
-        ButtonEditProject.setText("Edit a project");
-        ButtonEditProject.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonEditProjectActionPerformed(evt);
+    TFManagerID.setEditable(false);
+    TFManagerID.setText(" " + manager.id);
+
+    jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14));
+    jLabel3.setText("Projects");
+
+    jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14));
+    jLabel4.setText("Milestones");
+
+    buildMilestoneTableForProject();
+    jScrollPane3.setViewportView(jTable3);
+    // setup selection model for milestones table
+    ListSelectionModel milestoneSelectionModel = jTable3.getSelectionModel();
+    milestoneSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+    milestoneSelectionModel.addListSelectionListener(new ListSelectionListener() {
+        public void valueChanged(ListSelectionEvent e) {
+            if (jTable3.getSelectedRow() > -1) {
+                // store milestoneId of selected row
+                selectedMilestoneId = jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString();
             }
-        });
+        }
+    });
 
-        ButtonDeleteProject.setText("Delete a project");
-        ButtonDeleteProject.setMaximumSize(new java.awt.Dimension(99, 23));
-        ButtonDeleteProject.setMinimumSize(new java.awt.Dimension(99, 23));
-        ButtonDeleteProject.setPreferredSize(new java.awt.Dimension(99, 23));
-        ButtonDeleteProject.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonDeleteProjectActionPerformed(evt);
+    ButtonAddMilestone.setText("Add a milestone");
+    ButtonAddMilestone.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ButtonAddMilestoneActionPerformed(evt);
+        }
+    });
+
+    ButtonEditMilestone.setText("Edit a milestone");
+    ButtonEditMilestone.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ButtonEditMilestoneActionPerformed(evt);
+        }
+    });
+
+    ButtonDeleteMilestone.setText("Delete a milestone");
+    ButtonDeleteMilestone.setMaximumSize(new java.awt.Dimension(83, 23));
+    ButtonDeleteMilestone.setMinimumSize(new java.awt.Dimension(83, 23));
+    ButtonDeleteMilestone.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ButtonDeleteMilestoneActionPerformed(evt);
+        }
+    });
+
+    buildTasksTableForProject();
+    jScrollPane4.setViewportView(jTable4);
+    // setup selection model for milestones table
+    ListSelectionModel taskSelectionModel = jTable4.getSelectionModel();
+    taskSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+    taskSelectionModel.addListSelectionListener(new ListSelectionListener() {
+        public void valueChanged(ListSelectionEvent e) {
+            if (jTable4.getSelectedRow() > -1) {
+                // store milestoneId of selected row
+                selectedTaskId = jTable4.getValueAt(jTable4.getSelectedRow(), 0).toString();
             }
-        });
+        }
+    });
 
-        buildProjectsTableForFilter();
-        jScrollPane1.setViewportView(jTable1);
-        // setup selection model for projects table
-        ListSelectionModel projectSelectionModel = jTable1.getSelectionModel();
-        projectSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+    ButtonMAddTask.setText("Add a task");
+    ButtonMAddTask.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ButtonMAddTaskActionPerformed(evt);
+        }
+    });
 
-        projectSelectionModel.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                if (jTable1.getSelectedRow() > -1) {
-                    // store projectId of selected row
-                    selectedProjectId = jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
-                    // build ProjectId
-                    buildMilestoneTableForProject();
-                    buildTasksTableForProject();
-                }
-            }
-        });
+    ButtonMEditTask.setText("Edit a task");
+    ButtonMEditTask.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ButtonMEditTaskActionPerformed(evt);
+        }
+    });
 
-        TFManagerID.setEditable(false);
-        TFManagerID.setText(" " + manager.id);
+    ButtonMDeleteTask.setText("Delete a task");
+    ButtonMDeleteTask.setMaximumSize(new java.awt.Dimension(83, 23));
+    ButtonMDeleteTask.setMinimumSize(new java.awt.Dimension(83, 23));
+    ButtonMDeleteTask.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ButtonMDeleteTaskActionPerformed(evt);
+        }
+    });
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14));
-        jLabel3.setText("Projects");
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14));
-        jLabel4.setText("Milestones");
+        LabelWorkingEmployees.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        LabelWorkingEmployees.setText("Employees working under me");
 
-        buildMilestoneTableForProject();
-        jScrollPane3.setViewportView(jTable3);
-        // setup selection model for milestones table
-        ListSelectionModel milestoneSelectionModel = jTable3.getSelectionModel();
-        milestoneSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-
-        milestoneSelectionModel.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                if (jTable3.getSelectedRow() > -1) {
-                    // store milestoneId of selected row
-                    selectedMilestoneId = jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString();
-                }
-            }
-        });
-
-        ButtonAddMilestone.setText("Add a milestone");
-        ButtonAddMilestone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonAddMilestoneActionPerformed(evt);
-            }
-        });
-
-        ButtonEditMilestone.setText("Edit a milestone");
-        ButtonEditMilestone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonEditMilestoneActionPerformed(evt);
-            }
-        });
-
-        ButtonDeleteMilestone.setText("Delete a milestone");
-        ButtonDeleteMilestone.setMaximumSize(new java.awt.Dimension(83, 23));
-        ButtonDeleteMilestone.setMinimumSize(new java.awt.Dimension(83, 23));
-        ButtonDeleteMilestone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonDeleteMilestoneActionPerformed(evt);
-            }
-        });
-
-        buildTasksTableForProject();
-        jScrollPane4.setViewportView(jTable4);
-        // setup selection model for milestones table
-        ListSelectionModel taskSelectionModel = jTable4.getSelectionModel();
-        taskSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-
-        taskSelectionModel.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                if (jTable4.getSelectedRow() > -1) {
-                    // store milestoneId of selected row
-                    selectedTaskId = jTable4.getValueAt(jTable4.getSelectedRow(), 0).toString();
-                }
-            }
-        });
-
-        ButtonMAddTask.setText("Add a task");
-        ButtonMAddTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonMAddTaskActionPerformed(evt);
-            }
-        });
-
-        ButtonMEditTask.setText("Edit a task");
-        ButtonMEditTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonMEditTaskActionPerformed(evt);
-            }
-        });
-
-        ButtonMDeleteTask.setText("Delete a task");
-        ButtonMDeleteTask.setMaximumSize(new java.awt.Dimension(83, 23));
-        ButtonMDeleteTask.setMinimumSize(new java.awt.Dimension(83, 23));
-        ButtonMDeleteTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonMDeleteTaskActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel5.setText("Tasks");
-
-        ComboBoxProjectStatus
-                .setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "On-going", "Completed", "Blocked" }));
+        ComboBoxProjectStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "On-going", "Completed", "Blocked" }));
         ComboBoxProjectStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buildProjectsTableForFilter();
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel6.setText("Tasks");
+
+        buildWorkingEmployeesTable();
+        jScrollPane5.setViewportView(TableWorkingEmployees);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jScrollPane3,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 955,
-                                                                Short.MAX_VALUE)
-                                                        .addComponent(jScrollPane1)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(jLabel3)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(ComboBoxProjectStatus,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 89,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        Short.MAX_VALUE)
-                                                                .addComponent(ButtonAddProject)
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(ButtonEditProject,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 98,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(ButtonDeleteProject,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 115,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(jLabel1)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        Short.MAX_VALUE)
-                                                                .addComponent(jLabel2)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(TFManagerID,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 69,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addComponent(jScrollPane4,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 955,
-                                                                Short.MAX_VALUE))
-                                                .addGap(36, 36, 36))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(ButtonAddMilestone)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(ButtonEditMilestone,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 120,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(ButtonDeleteMilestone,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(33, 33, 33))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(ButtonMAddTask)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(ButtonMEditTask, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(ButtonMDeleteTask, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(33, 33, 33)))));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonAddMilestone)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonEditMilestone, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonDeleteMilestone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(LabelWorkingEmployees)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ComboBoxProjectStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ButtonAddProject)
+                                .addGap(18, 18, 18)
+                                .addComponent(ButtonEditProject, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ButtonDeleteProject, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TFManagerID, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ButtonMAddTask)
+                                .addGap(18, 18, 18)
+                                .addComponent(ButtonMEditTask, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ButtonMDeleteTask, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(33, 33, 33))))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(TFManagerID, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel3)
-                                        .addComponent(ButtonAddProject)
-                                        .addComponent(ButtonEditProject)
-                                        .addComponent(ButtonDeleteProject, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(ComboBoxProjectStatus, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel4)
-                                        .addComponent(ButtonAddMilestone)
-                                        .addComponent(ButtonEditMilestone)
-                                        .addComponent(ButtonDeleteMilestone, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 75,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel5)
-                                        .addComponent(ButtonMAddTask)
-                                        .addComponent(ButtonMEditTask)
-                                        .addComponent(ButtonMDeleteTask, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 75,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(40, Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TFManagerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(ButtonAddProject)
+                    .addComponent(ButtonEditProject)
+                    .addComponent(ButtonDeleteProject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboBoxProjectStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(ButtonAddMilestone)
+                    .addComponent(ButtonEditMilestone)
+                    .addComponent(ButtonDeleteMilestone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonMAddTask)
+                    .addComponent(ButtonMEditTask)
+                    .addComponent(ButtonMDeleteTask, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LabelWorkingEmployees))
+                .addGap(19, 19, 19))
+        );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
+
+
 
     private void buildProjectsTableForFilter() {
 
@@ -460,7 +434,24 @@ public class ManagerDashboard extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void buildWorkingEmployeesTable(){
+        TableWorkingEmployees.setModel(new javax.swing.table.DefaultTableModel(
+            Utilities.parseToObjectArray(worksForDao.getEmployeesWorkingForManager(manager.id)),
+            new String [] {
+                "Employee ID", "Employee name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+    }
+    
     private void ButtonDeleteProjectActionPerformed(java.awt.event.ActionEvent evt) {
         JTextField projectid = new JTextField(selectedProjectId);
 
@@ -676,16 +667,13 @@ public class ManagerDashboard extends javax.swing.JFrame {
         JTextField taskname = new JTextField();
         JTextField employeeid = new JTextField();
         JTextField milestoneid = new JTextField(selectedMilestoneId);
-        JTextField projectid = new JTextField(selectedProjectId);
         final JComponent[] inputs = new JComponent[] {
                 new JLabel("Task name"),
                 taskname,
                 new JLabel("Assign to Employee ID"),
                 employeeid,
                 new JLabel("Milestone ID"),
-                milestoneid,
-                new JLabel("Project ID"),
-                projectid
+                milestoneid
         };
         int response = JOptionPane.showConfirmDialog(null, inputs, "Add a Task", JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE);
@@ -693,11 +681,13 @@ public class ManagerDashboard extends javax.swing.JFrame {
             try {
                 boolean isInserted = taskDao.insert(new Task(taskname.getText(), Integer.valueOf(employeeid.getText()),
                         1, Integer.valueOf(milestoneid.getText())));
+                isInserted = worksForDao.insert( Integer.valueOf(employeeid.getText()), manager.id);
                 if (isInserted) {
                     JOptionPane.showMessageDialog(null, "Inserted Task!");
 
                     // rebuild table
                     buildTasksTableForProject();
+                    buildWorkingEmployeesTable();
                 } else {
                     JOptionPane.showMessageDialog(null, " Could not Insert Task!");
                 }
@@ -714,7 +704,6 @@ public class ManagerDashboard extends javax.swing.JFrame {
         JTextField taskname = new JTextField();
         JTextField employeeid = new JTextField();
         JTextField milestoneid = new JTextField(selectedMilestoneId);
-        JTextField projectid = new JTextField(selectedProjectId);
 
         final JComponent[] inputs = new JComponent[] {
                 new JLabel("Task ID"),
@@ -724,21 +713,20 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 new JLabel("Assign to Employee ID"),
                 employeeid,
                 new JLabel("Milestone ID"),
-                milestoneid,
-                new JLabel("Project ID"),
-                projectid
-
+                milestoneid
         };
         int response = JOptionPane.showConfirmDialog(null, inputs, "Edit a task", JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE);
         if (response == 0) {
-            boolean isInserted = taskDao.update(new Task(Integer.valueOf(taskid.getText()), taskname.getText(),
+            boolean isUpdated = taskDao.update(new Task(Integer.valueOf(taskid.getText()), taskname.getText(),
                     Integer.valueOf(employeeid.getText()), 1, Integer.valueOf(milestoneid.getText())));
-            if (isInserted) {
+            isUpdated = worksForDao.insert( Integer.valueOf(employeeid.getText()), manager.id);
+            if (isUpdated) {
                 JOptionPane.showMessageDialog(null, "Updated Task!");
 
                 // rebuild table
                 buildTasksTableForProject();
+                buildWorkingEmployeesTable();
             } else {
                 JOptionPane.showMessageDialog(null, " Could not Update Task!");
             }
@@ -775,6 +763,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         }
 
     }
+
 
     public static void build(Manager loggedInManager) {
 
@@ -823,15 +812,18 @@ public class ManagerDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
+    private javax.swing.JLabel LabelWorkingEmployees;
+    private javax.swing.JTable TableWorkingEmployees;
     private String selectedProjectId;
     private String selectedMilestoneId;
     private String selectedTaskId;
@@ -839,6 +831,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
     private ManagerTaskView managerView = new ManagerTaskView();
     private ProjectDao projectDao = new ProjectDao();
     private MilestonesDao milestonesDao = new MilestonesDao();
+    private WorksForDao worksForDao = new WorksForDao();
     private TaskDao taskDao = new TaskDao();
 
 }
