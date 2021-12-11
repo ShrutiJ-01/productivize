@@ -17,8 +17,8 @@ public final class App {
 
     public static void main(String[] args) throws Exception {
         log.info("---STARTING APPLICATION PRODUCTIVIZE---");
-        //RegisterationSystem.main(args);
-        LoginSystem.build();
+        RegisterationSystem.main(args);
+        //LoginSystem.build();
     }
 
 }

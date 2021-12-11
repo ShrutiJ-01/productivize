@@ -8,6 +8,7 @@ import javax.swing.border.Border;
 
 import com.example.entites.Employee;
 import com.example.entites.Manager;
+import com.example.services.Utilities;
 import com.example.tabledao.Authenticate;
 
 //first and last name conjugatd in tasks tabel
@@ -56,11 +57,11 @@ public class LoginSystem extends javax.swing.JFrame {
         LabelEmployee = new javax.swing.JLabel();
         LabelManager = new javax.swing.JLabel();
         PanelEmployee = new javax.swing.JPanel();
-        TFEmployeeID = new javax.swing.JTextField();
+        TFEmployeeID = new javax.swing.JTextField("");
         PasswordFieldEmployee = new javax.swing.JPasswordField();
         ButtonEmployeeLogin = new javax.swing.JButton();
         PanelManager = new javax.swing.JPanel();
-        TFManagerID = new javax.swing.JTextField();
+        TFManagerID = new javax.swing.JTextField("");
         PasswordFieldManager = new javax.swing.JPasswordField();
         ButtonManagerLogin = new javax.swing.JButton();
 
@@ -390,28 +391,44 @@ public class LoginSystem extends javax.swing.JFrame {
     }//GEN-LAST:event_PasswordFieldManagerFocusLost
 
     private void ButtonEmployeeLoginActionPerformed(java.awt.event.ActionEvent evt,String uid,String password) {//GEN-FIRST:event_ButtonManagerLoginActionPerformed
-        try {
-            Employee loggedInEmployee=authentication.loginEmployee(Integer.parseInt(uid), password);
-            
-            JOptionPane.showMessageDialog(null, "You have succesfully logged in!");
-            
-            dispose();//close the login window
-            EmployeeDashboard.build(loggedInEmployee);//build the employee dashboard
-        } catch (Exception e) {
-         JOptionPane.showMessageDialog(null,e.getMessage());
+        
+        if (uid.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter valid name"); 
+        } else if(!Utilities.isValidPassword(password)) {
+            JOptionPane.showMessageDialog(null, "Please enter valid password. It must be of 8-16 charcters with \n 1 upper case alphabet \n 1 special character \n 1 digit");
+        } else{
+            try {
+                Employee loggedInEmployee=authentication.loginEmployee(Integer.parseInt(uid), password);
+                
+                JOptionPane.showMessageDialog(null, "You have succesfully logged in!");
+                
+                dispose();//close the login window
+                EmployeeDashboard.build(loggedInEmployee);//build the employee dashboard
+            } catch (Exception e) {
+             JOptionPane.showMessageDialog(null,e.getMessage());
+            }
+
         }
     }
     
     private void ButtonManagerLoginActionPerformed(java.awt.event.ActionEvent evt,String uid,String password) {//GEN-FIRST:event_ButtonManagerLoginActionPerformed
-        try {
-            Manager loggedInManager=authentication.loginManager(Integer.parseInt(uid), password);
-            System.out.println(" name is : "+loggedInManager.first_name);
-            JOptionPane.showMessageDialog(null, "You have succesfully logged in!");
+        
+        if (uid.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter valid name"); 
+        } else if(!Utilities.isValidPassword(password)) {
+            JOptionPane.showMessageDialog(null, "Please enter valid password. It must be of 8-16 charcters with \n 1 upper case alphabet \n 1 special character \n 1 digit");
+        } else{
+            try {
+                Manager loggedInManager=authentication.loginManager(Integer.parseInt(uid), password);
+                System.out.println(" name is : "+loggedInManager.first_name);
+                JOptionPane.showMessageDialog(null, "You have succesfully logged in!");
+    
+                dispose();//close the login window
+                ManagerDashboard.build(loggedInManager);//build the manager dashboard
+            } catch (Exception e) {
+             JOptionPane.showMessageDialog(null,e.getMessage());
+            }
 
-            dispose();//close the login window
-            ManagerDashboard.build(loggedInManager);//build the manager dashboard
-        } catch (Exception e) {
-         JOptionPane.showMessageDialog(null,e.getMessage());
         }
     }
 

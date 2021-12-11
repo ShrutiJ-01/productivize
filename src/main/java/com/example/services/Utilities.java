@@ -4,6 +4,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.util.HashSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -54,6 +56,45 @@ public class Utilities {
 
     public static boolean verifyEnteredPassword(String plainTextPassword,String storedHash){
         return BCrypt.checkpw(plainTextPassword, storedHash);
+    }
+
+    public static boolean isValidPassword(String password)
+    {//validator function for password
+  
+        // Regex to check valid password.
+        String regex = "^(?=.*[0-9])"
+                       + "(?=.*[a-z])(?=.*[A-Z])"
+                       + "(?=.*[@#$%^&+=])"
+                       + "(?=\\S+$).{8,20}$";
+  
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
+  
+        // If the password is empty
+        // return false
+        if (password == null) {
+            return false;
+        }
+  
+        // Pattern class contains matcher() method
+        // to find matching between given password
+        // and regular expression.
+        Matcher m = p.matcher(password);
+  
+        // Return if the password
+        // matched the ReGex
+        return m.matches();
+    }
+
+    public static boolean isFullname(String str) {
+        //return false if name has special numbers or characters or is empty.
+        String expression = "^[a-zA-Z\\s]+"; 
+        if(str!=null){            
+        return str.matches(expression);  
+        }  
+        else{
+            return false;
+        }    
     }
 
     public static Object[][] parseToObjectArray(ResultSet resultSet){

@@ -43,7 +43,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         ButtonEditTask = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        TFEmpID = new javax.swing.JTextField();
+        TFEmpID = new javax.swing.JTextField("");
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -257,7 +257,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     }
 
     private void ButtonAddLogActionPerformed(java.awt.event.ActionEvent evt) {
-        JTextField workdone = new JTextField();
+        JTextField workdone = new JTextField("");
         JTextField taskid = new JTextField(selectedTaskId);
         final JComponent[] inputs = new JComponent[] {
                 new JLabel("Work done"),
@@ -295,7 +295,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     private void ButtonEditLogActionPerformed(java.awt.event.ActionEvent evt) {
         JTextField id = new JTextField(selectedWorklogId);
-        JTextField workdone = new JTextField();
+        JTextField workdone = new JTextField("");
         JTextField taskid = new JTextField(selectedTaskId);
         final JComponent[] inputs = new JComponent[] {
                 new JLabel("Worklog ID"),
@@ -359,7 +359,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     private void ButtonEditTaskActionPerformed(java.awt.event.ActionEvent evt) {
         JTextField taskid = new JTextField(selectedTaskId);
-        JTextField taskStatus = new JTextField();
+        JTextField taskStatus = new JTextField("");
 
         final JComponent[] inputs = new JComponent[] {
                 new JLabel("Task ID"),

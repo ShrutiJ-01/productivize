@@ -11,6 +11,7 @@ import javax.swing.border.Border;
 
 import com.example.entites.Employee;
 import com.example.entites.Manager;
+import com.example.services.Utilities;
 import com.example.tabledao.Authenticate;
 
 /**
@@ -58,11 +59,11 @@ public class RegisterationSystem extends javax.swing.JFrame {
         LabelEmployee = new javax.swing.JLabel();
         LabelManager = new javax.swing.JLabel();
         PanelEmployee = new javax.swing.JPanel();
-        TFEmployeeName = new javax.swing.JTextField();
+        TFEmployeeName = new javax.swing.JTextField("");
         PasswordFieldEmployee = new javax.swing.JPasswordField();
         ButtonEmployeeRegistration = new javax.swing.JButton();
         PanelManager = new javax.swing.JPanel();
-        TFManagerName = new javax.swing.JTextField();
+        TFManagerName = new javax.swing.JTextField("");
         PasswordFieldManager = new javax.swing.JPasswordField();
         ButtonManagerRegistration = new javax.swing.JButton();
 
@@ -407,33 +408,49 @@ public class RegisterationSystem extends javax.swing.JFrame {
 
     private void ButtonManagerRegistrationActionPerformed(String name, String password) {
         name = name.trim();
-        String[] managerName = name.split(" ", 2);
-        try {
-            Manager registeredManager = authentication.registerManager(managerName[0], managerName[1], password);
-            System.out.println(" registered Id is : " + registeredManager.id);
-            JOptionPane.showMessageDialog(null, "your manager Id is : " + registeredManager.id
-                    + " \n Please login with this Manager Id and password again");
-            dispose();// dispose pf registration window
-            LoginSystem.build();// build the login UI
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        if (!Utilities.isFullname(name)) {
+            JOptionPane.showMessageDialog(null, "Please enter valid name"); 
+        } else if(!Utilities.isValidPassword(password)) {
+            JOptionPane.showMessageDialog(null, "Please enter valid password. It must be of 8-16 charcters with \n 1 upper case alphabet \n 1 special character \n 1 digit");
+        } else{
+            String[] managerName = name.split(" ", 2);
+            try {
+                Manager registeredManager = authentication.registerManager(managerName[0], managerName[1], password);
+                System.out.println(" registered Id is : " + registeredManager.id);
+                JOptionPane.showMessageDialog(null, "your manager Id is : " + registeredManager.id
+                        + " \n Please login with this Manager Id and password again");
+                dispose();// dispose pf registration window
+                LoginSystem.build();// build the login UI
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+
         }
 
     }
 
     private void ButtonEmployeeRegistrationActionPerformed(String name, String password) {
         name = name.trim();
-        String[] employeeName = name.split(" ", 2);
-        try {
-            Employee registeredEmployee = authentication.registerEmployee(employeeName[0], employeeName[1], password);
-            System.out.println(" registered Id is : " + registeredEmployee.id);
-            JOptionPane.showMessageDialog(null, "your employee Id is : " + registeredEmployee.id
-                    + " \n Please login with this Employee Id and password again");
-            dispose();// dispose pf registration window
-            LoginSystem.build();// build the login UI
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        
+        if (!Utilities.isFullname(name)) {
+            JOptionPane.showMessageDialog(null, "Please enter valid name"); 
+        } else if(!Utilities.isValidPassword(password)) {
+            JOptionPane.showMessageDialog(null, "Please enter valid password. It must be of 8-16 charcters with \n 1 upper case alphabet \n 1 special character \n 1 digit");
+        } else{
+            String[] employeeName = name.split(" ", 2);
+            try {
+                Employee registeredEmployee = authentication.registerEmployee(employeeName[0], employeeName[1], password);
+                System.out.println(" registered Id is : " + registeredEmployee.id);
+                JOptionPane.showMessageDialog(null, "your employee Id is : " + registeredEmployee.id
+                        + " \n Please login with this Employee Id and password again");
+                dispose();// dispose pf registration window
+                LoginSystem.build();// build the login UI
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+
         }
+
     }
 
     /**
